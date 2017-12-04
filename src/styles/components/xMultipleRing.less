@@ -1,0 +1,16 @@
+@multiple-ring: ~"@{css-prefix}multiple-ring";
+
+.@{multiple-ring} {
+  display: inline-block;
+  position: relative;
+  &-inner {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    font-weight: bold;
+    font-size: 18px;
+    transform: translateY(-50%);
+  }
+}
