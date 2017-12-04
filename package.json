@@ -1,9 +1,12 @@
 {
-  "name": "zhxg",
+  "name": "vue-geo",
   "version": "1.0.0",
-  "description": "vue组件库",
-  "author": "gcc[gaochunchao@geostar.com.cn]",
-  "private": true,
+  "description": "vue吉奥组件库",
+  "author": "SubSpring[gaochunchao@geostar.com.cn]",
+  "contributors": [
+    "SubSpring",
+    "szagnesc"
+  ],
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
