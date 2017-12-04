@@ -13,13 +13,11 @@
     "test": "mocha"
   },
   "dependencies": {
-    "animate.css": "^3.5.2",
     "buffer-shims": "^1.0.0",
     "echarts": "^3.6.2",
     "echarts-wordcloud": "^1.1.0",
     "util-deprecate": "^1.0.2",
     "vue": "^2.3.4",
-    "vue-count-to": "^1.0.10",
     "vue-router": "^2.7.0"
   },
   "devDependencies": {
