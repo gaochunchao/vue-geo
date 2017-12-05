@@ -22,8 +22,9 @@ function install(Vue, _) {
 
 
 const API = {
+  version: process.env.VERSION,
   install,
   ...components
 }
 
-module.exports.default = module.exports = API;   // eslint-disable-line no-undef
+module.exports.default = module.exports = API;
