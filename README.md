@@ -1,16 +1,13 @@
 #需要环境配置
-*node >=4.5.0
+*node >=6.0.0
 *npm >3.0.0
 
-#自动化测试环境配置
-#npm install mocha mochawesome  babel-core babel-preset-es2015 chai --save-dev
+#感谢IView作者分享组件库，参考IView进行构建发布
 
+#自动化测试环境配置
 
 确认好你的环境配置，然后就可以开始以下步骤。
-$npm install
-$npm run dev
-$npm run build
-$npm run test
+
 
 #浏览器要求  IE9+
 
