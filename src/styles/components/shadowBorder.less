@@ -1,11 +1,12 @@
 @yBorder: ~"@{css-prefix}shadowBorder";
+@shadowBorder: "../images/border";
 .@{yBorder} {
   &:after {
     content: "";
-    background: url("../../images/border/top-left.png") no-repeat,
-    url("../../images/border/top-right.png") 100% 0 no-repeat,
-    url("../../images/border/bottom-left.png") 0 100% no-repeat,
-    url("../../images/border/bottom-right.png") 100% 100% no-repeat;
+    background: url("@{shadowBorder}/top-left.png") no-repeat,
+    url("@{shadowBorder}/top-right.png") 100% 0 no-repeat,
+    url("@{shadowBorder}/bottom-left.png") 0 100% no-repeat,
+    url("@{shadowBorder}/bottom-right.png") 100% 100% no-repeat;
     width: 100%;
     height: 100%;
     display: block;

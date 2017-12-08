@@ -1,6 +1,6 @@
 <template>
   <div :class="classes" :style="styles">
-    <div :class="[prefixCls + '-icon']"><img :src="img.length>0 ? img : '../../images/carbon.png'" height="50"
+    <div :class="[prefixCls + '-icon']"><img :src="img.length>0 ? img : '../../styles/images/carbon.png'" height="50"
                                              width="50"/></div>
     <div :class="[prefixCls + '-textBox']">
       <div :class="[prefixCls + '-textBox-val']" :style="{color:numCor}" v-if="isShow">{{text}}

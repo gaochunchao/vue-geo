@@ -18,12 +18,12 @@ gulp.task('css', function () {
 
 // 拷贝字体文件
 gulp.task('fonts', function () {
-  gulp.src('../src/styles/common/fonts/*.*')
+  gulp.src('../src/styles/fonts/*.*')
     .pipe(gulp.dest('../dist/styles/fonts'));
 });
 // 拷贝图片
 gulp.task('images', function () {
-  gulp.src('../src/images/*/*.*')
+  gulp.src('../src/styles/images/*/*.*')
     .pipe(gulp.dest('../dist/styles/images'));
 });
 gulp.task('default', ['css', 'fonts', 'images']);

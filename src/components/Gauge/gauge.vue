@@ -1,11 +1,11 @@
 <template>
   <section :class="classes" :style="styles">
     <div :class="[prefixCls + '-chart']">
-      <img :class="[prefixCls + '-chart-split']" src="../../images/gauge/bftd.png"></img>
+      <img :class="[prefixCls + '-chart-split']" src="../../styles/images/gauge/bftd.png"></img>
       <img :class="[prefixCls + '-chart-jt']" :style="jtStyle" style="transform: rotateZ(-90deg);"
-           src="../../images/gauge/jt.png" v-if="animated"></img>
+           src="../../styles/images/gauge/jt.png" v-if="animated"></img>
       <img :class="[prefixCls + '-chart-jt']" style="transform: rotateZ(-90deg);" :style="jtStyle"
-           src="../../images/gauge/jt.png" v-else></img>
+           src="../../styles/images/gauge/jt.png" v-else></img>
     </div>
     <div :class="[prefixCls + '-text']" ref="text">
       <div :class="[prefixCls + '-text-percent']" v-if="animated">
