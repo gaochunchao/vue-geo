@@ -1,19 +1,14 @@
 <template>
   <div>
-    <span>仪表盘</span>
-    <gauge name="污水处理率" :percent="csjzhjdata.amount1"
-           :src="['../../static/images/bftd.png','../../static/images/jt1.png']"></gauge>
+      <span>仪表盘</span>
+      <gauge :percent="60">污水处理率</gauge>
   </div>
 </template>
 <script>
-  export default {
-    data(){
-      return {
-        csjzhjdata: {
-          amount1: 60
-        }
-      }
-    }
+export default {
+  data(){
+      return{}
   }
+}
 </script>
 

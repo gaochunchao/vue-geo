@@ -7,7 +7,8 @@ import App from './app.vue';
 import geoView from '../src/index';
 import '../src/styles/index.less'
 import barChart from './routers/barChart.vue'
-import xMultipleRing from './routers/xMultipleRing.vue'
+import timelineBar from './routers/timelineBar.vue'
+import multipleRing from './routers/multipleRing.vue'
 import lineChart from './routers/lineChart.vue'
 import pieChart from './routers/pieChart.vue'
 import cirPross from './routers/cirPross.vue'
@@ -16,6 +17,10 @@ import table from './routers/table.vue'
 import irBorder from './routers/irBorder.vue'
 import shadowBorder from './routers/shadowBorder.vue'
 import iconBox from './routers/iconBox.vue'
+import xLabel from './routers/xLabel.vue'
+import yLabel from './routers/yLabel.vue'
+import xLegend from './routers/xLegend.vue'
+import yLegend from './routers/yLegend.vue'
 
 
 Vue.use(VueRouter);
@@ -26,14 +31,13 @@ Vue.config.debug = true;
 
 // 路由配置
 const router = new VueRouter({
-  routes: [
-    {
+  routes: [{
       path: '/barChart',
       component: barChart
     },
     {
-      path: '/xMultipleRing',
-      component: xMultipleRing
+      path: '/multipleRing',
+      component: multipleRing
     },
     {
       path: '/lineChart',
@@ -42,6 +46,10 @@ const router = new VueRouter({
     {
       path: '/pieChart',
       component: pieChart
+    },
+    {
+      path: '/timelineBar',
+      component: timelineBar
     },
     {
       path: '/cirPross',
@@ -66,6 +74,22 @@ const router = new VueRouter({
     {
       path: '/iconBox',
       component: iconBox
+    },
+    {
+      path: '/xLabel',
+      component: xLabel
+    }, 
+    {
+      path: '/yLabel',
+      component: yLabel
+    }, 
+    {
+      path: '/xLegend',
+      component: xLegend
+    },
+    {
+      path: '/yLegend',
+      component: yLegend
     },
   ]
 });

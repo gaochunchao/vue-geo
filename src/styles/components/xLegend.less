@@ -1,0 +1,31 @@
+@xLegend: ~"@{css-prefix}xLegend";
+.@{xLegend} {
+    float: left;
+    height:100%;
+    width:100%;
+    &-clr {
+        .legend;
+        .hCenter;
+    }
+    &-name,
+    &-val,
+    &-ratio {
+        .fl;
+        height:100%;
+        margin:0 3px;
+    }
+    &-type {
+        .fl;
+        .hCenter;
+        &-up {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 7px solid #f35454;
+        }
+        &-down {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 7px solid #2cca6f;
+        }
+    }
+}

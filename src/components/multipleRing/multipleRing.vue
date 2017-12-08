@@ -20,11 +20,11 @@
   </div>
 </template>
 <script>
-  const prefixCls = 'geo-multiple-ring';
-  const defaultSize = 60;
-  const defaultSpace = 4;
+  const prefixCls='geo-multiple-ring';
+  const defaultSize=60;
+  const defaultSpace=4;
   export default {
-    name: 'MultipleRing',
+    name: 'multipleRing',
     props: {
       size: {  //半径
         type: Number,
@@ -73,9 +73,9 @@
     },
     data(){
       return {
-        outC: this.outerColor,
-        innerC: this.innerColor,
-        prefixCls: prefixCls
+        outC:this.outerColor,
+        innerC:this.innerColor,
+        prefixCls:prefixCls
       }
     },
     computed: {

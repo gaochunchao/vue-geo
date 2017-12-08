@@ -1,0 +1,40 @@
+@yLegend: ~"@{css-prefix}yLegend";
+.@{yLegend} {
+    float: left;
+    height:100%;
+    width:100%;
+    &-clr {
+        .legend;
+        .hCenter;
+    }
+    &-name,
+    &-com,
+    &-ratio {
+        .fl;
+        height:100%;
+        margin:0 3px;
+    }
+    &-num {
+        .fl;
+        width:30%;
+        height:31px;
+        text-align: center;
+        font-size: 14px;
+        .labelBox;
+        .hCenter
+    }
+    &-type{
+        .fl;
+        .hCenter;
+        &-up{
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 15px solid #f35454;
+        }
+        &-down{
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 15px solid #2cca6f;
+        }
+    }
+}

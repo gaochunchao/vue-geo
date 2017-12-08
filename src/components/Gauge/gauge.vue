@@ -3,18 +3,13 @@
     <div :class="[prefixCls + '-chart']">
       <img :class="[prefixCls + '-chart-split']" src="../../images/gauge/bftd.png"></img>
       <img :class="[prefixCls + '-chart-jt']" :style="jtStyle" style="transform: rotateZ(-90deg);"
-           src="../../images/gauge/jt.png" v-if="animated"></img>
-      <img :class="[prefixCls + '-chart-jt']" style="transform: rotateZ(-90deg);" :style="jtStyle"
-           src="../../images/gauge/jt.png" v-else></img>
+           src="../../images/gauge/jt.png"></img>
     </div>
     <div :class="[prefixCls + '-text']" ref="text">
-      <div :class="[prefixCls + '-text-percent']" v-if="animated">
+      <div :class="[prefixCls + '-text-percent']">
         <countTo :startVal='0' :endVal="percent" :decimals="getDecimals()" :suffix="getSuffix()"
                  :duration='4000'></countTo>
         %
-      </div>
-      <div :class="[prefixCls + '-text-percent']" v-else>
-        {{percent}}%
       </div>
       <div :class="[prefixCls + '-text-name']">
         <slot></slot>
@@ -40,10 +35,6 @@
       src: {
         type: Array
       },
-      animated: {
-        type: Boolean,
-        default: true
-      },
       // 设置外盒的样式
       styles: {
         type: Object,
@@ -58,11 +49,10 @@
     data() {
       return {
         prefixCls: prefixCls,
+        rate: this.percent,
         jtStyle: {
           transform: 'rotateZ(0deg)'
-        },
-        duration: 3000, // 动画时间
-        num: 100 // 移动次数
+        }
       };
     },
     computed: {
@@ -75,21 +65,16 @@
     },
     methods: {
       transform() {
-        if (!isNaN(this.percent)) {
-          if (this.animated) {
-            let count = 0;
-            const speed = this.duration / this.num; // 动画速度
-            const rate = 180 / this.num; // 翻转角度 一次移动的角度
-            let timer = setInterval(() => {
-              count++;
-              this.jtStyle = `transform: rotateZ(${-90 + count * rate * (this.percent / 100)}deg)`;
-              if (count === this.num) {
-                clearInterval(timer);
-              }
-            }, speed);
-          } else {
-            this.jtStyle = `transform: rotateZ(${-90 + 1.8 * this.percent }deg)`;
-          }
+        if (!isNaN(this.rate)) {
+          const speed = (1.8 * this.rate) / 4;
+          let count = 0;
+          let timer = setInterval(() => {
+            count++;
+            this.jtStyle = `transform: rotateZ(${-90 + speed * count/10}deg)`;
+            if (count === 50) {
+              clearInterval(timer);
+            }
+          }, 50);
         } else {
           this.jtStyle = `transform: rotateZ(0deg);`;
         }

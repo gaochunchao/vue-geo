@@ -1,21 +1,17 @@
 @xBorder: ~"@{css-prefix}irBorder";
-@images: "../../images/box";
-.top(@size) {
+@images:"../../images/box";
+.top(@size){
   background+: url("@{images}/@{size}btl.png") no-repeat;
 }
-
-.right(@size) {
+.right(@size){
   background+: url("@{images}/@{size}btr.png") 100% 0 no-repeat;
 }
-
-.bottom() {
+.bottom(){
   background+: url("@{images}/bbl.png") 0 100% no-repeat;
 }
-
-.left() {
+.left(){
   background+: url("@{images}/bbr.png") 100% 100% no-repeat;
 }
-
 .@{xBorder} {
   float: left;
   position: relative;
@@ -24,24 +20,24 @@
     .right('');
     .bottom();
     .left();
-    width: 398px;
-    height: 100px;
+    width:398px;
+    height:100px;
   }
   &-middle {
     .top('m-');
     .right('m-');
     .bottom();
     .left();
-    width: 1000px;
-    height: 100px;
+    width:1000px;
+    height:100px;
   }
   &-big {
     .top('b-');
     .right('b-');
     .bottom();
     .left();
-    width: 1400px;
-    height: 300px;
+    width:1400px;
+    height:300px;
   }
   &-title {
     width: 100%;

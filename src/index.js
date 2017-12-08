@@ -2,30 +2,42 @@
 import barChart from "./components/barChart";
 import lineChart from "./components/lineChart";
 import pieChart from "./components/pieChart";
-import xMultipleRing from "./components/xMultipleRing"
+import timelineBar from "./components/timelineBar";
+import multipleRing from "./components/multipleRing"
 import cirPross from "./components/cirPross"
 import gauge from "./components/gauge"
+import tableForm from "./components/table"
 import irBorder from "./components/irBorder"
 import shadowBorder from "./components/shadowBorder"
 import iconBox from "./components/iconBox"
+import xLabel from "./components/xLabel"
+import yLabel from "./components/yLabel"
+import xLegend from "./components/xLegend"
+import yLegend from "./components/yLegend"
 
 const components = {
   barChart,
+  timelineBar,
   lineChart,
   pieChart,
-  xMultipleRing,
+  multipleRing,
   cirPross,
   gauge,
+  tableForm,
   irBorder,
   shadowBorder,
-  iconBox
+  iconBox,
+  xLabel,
+  yLabel,
+  xLegend,
+  yLegend
 }
 
 const geoView = {
   ...components
 };
 
-function install(Vue, _) {
+function install (Vue, _) {
   Object.keys(geoView).forEach(key => {
     Vue.component(key, geoView[key]);
   });
@@ -33,8 +45,9 @@ function install(Vue, _) {
 
 
 const API = {
+  version: process.env.VERSION,
   install,
   ...components
 }
 
-module.exports.default = module.exports = API;   // eslint-disable-line no-undef
+module.exports.default = module.exports = API;
