@@ -17,10 +17,13 @@ gulp.task('css', function () {
 });
 
 // 拷贝字体文件
-// gulp.task('fonts', function () {
-//     gulp.src('../src/styles/common/iconfont/fonts/*.*')
-//         .pipe(gulp.dest('../dist/styles/fonts'));
-// });
-
-gulp.task('default', ['css']);
-// gulp.task('default', ['css', 'fonts']);
+gulp.task('fonts', function () {
+  gulp.src('../src/styles/common/fonts/*.*')
+    .pipe(gulp.dest('../dist/styles/fonts'));
+});
+// 拷贝图片
+gulp.task('images', function () {
+  gulp.src('../src/images/*/*.*')
+    .pipe(gulp.dest('../dist/styles/images'));
+});
+gulp.task('default', ['css', 'fonts', 'images']);
