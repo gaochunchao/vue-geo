@@ -8,11 +8,7 @@
   </div>
 </template>
 <script>
-  // import lineChart from "../../src/components/lineChart/lineChart";
   export default {
-    //   components: {
-    //     lineChart
-    //   },
     data() {
       return {
         jjzlLine: {

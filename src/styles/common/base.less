@@ -1,5 +1,4 @@
 @import "normalize";
-
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -20,12 +19,50 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+hr,
+button,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
   margin: 0;
   padding: 0;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -36,7 +73,8 @@ ol {
   list-style: none;
 }
 
-input::-ms-clear, input::-ms-reveal {
+input::-ms-clear,
+input::-ms-reveal {
   display: none;
 }
 
@@ -46,22 +84,17 @@ a {
   text-decoration: none;
   outline: none;
   cursor: pointer;
-  transition: color @transition-time ease;
-
   &:hover {
     color: @link-hover-color;
   }
-
   &:active {
     color: @link-active-color;
   }
-
   &:active,
   &:hover {
     outline: 0;
     text-decoration: none;
   }
-
   &[disabled] {
     color: #ccc;
     cursor: @cursor-disabled;
@@ -74,4 +107,47 @@ kbd,
 pre,
 samp {
   font-family: @code-family;
+}
+
+.labelBox {
+  font-size: 24px;
+  position: relative;
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    width: 11px;
+    height: 31px;
+    background: url("../../images/border/num-l.png") no-repeat;
+    position: absolute;
+  }
+  &::after {
+    content: "";
+    background: url("../../images/border/num-r.png") no-repeat;
+    right: 0;
+    top: 0;
+  }
+}
+
+.legend {
+  float: left;
+  height: 14px;
+  width: 14px;
+  margin-right: 3px;
+  background-color: #fc0;
+  border-radius: 15%;
+}
+
+.fl {
+  float: left
+}
+
+.fr {
+  float: right
+}
+
+.hCenter {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }

@@ -1,6 +1,6 @@
 {
   "name": "vue-geo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "vue吉奥组件库",
   "author": "gaochunchao[452486035@qq.com]",
   "contributors": [
@@ -30,6 +30,7 @@
     "echarts-wordcloud": "^1.1.0",
     "util-deprecate": "^1.0.2",
     "vue": "^2.3.4",
+    "vue-count-to": "^1.0.10",
     "vue-router": "^2.7.0"
   },
   "devDependencies": {

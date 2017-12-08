@@ -37,7 +37,6 @@ html {
   color: #fff;
   margin: 0 auto;
 }
-
 body {
   font-family: "Microsoft Yahei";
   margin: 0;
@@ -46,35 +45,13 @@ body {
   height: 100%;
 }
 
-@font-face {
-  font-family: AgencyFBBold;
-  src: url('../../../static/font/Agency_FB_Bold.otf');
-  src: url('../../../static/font/Agency_FB_Bold.woff') format('woff'), url('../../../static/font/Agency_FB_Bold.ttf') format('truetype'), url('../../../static/font/Agency_FB_Bold.svg') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: FZZCHJW;
-  src: url('../../../static/font/FZZCHJW.otf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: FZZZHONGJW;
-  src: url('../../../static/font/FZZZHONGJW.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
 .xLabel {
   width: 100px;
   height: 100%;
   text-align: center;
   color: #ffffff;
   .number {
-    background: url(../../../static/images/sjbg.png) no-repeat;
+    background: url(../../images/sjbg.png) no-repeat;
     background-size: contain;
     background-position: center;
     height: 40px;
@@ -178,7 +155,7 @@ body {
   display: flex;
   justify-content: space-around;
   .jjbox-title {
-    background: url("../../../static/images/yyzx/bk1.png") no-repeat;
+    background: url("../../images/box/bk1.png") no-repeat;
     height: 110px;
     width: 43px;
     display: flex;
@@ -196,223 +173,5 @@ body {
   &.right {
     transform: rotateY(180deg);
 
-  }
-}
-
-//基础设施样式
-.jcss-box {
-  .columnFlex;
-  .mapBox {
-    width: 100%;
-    padding: 10px;
-    height: calc(~"100% - 390px");
-    margin-bottom: 10px;
-    background: url("../../../static/images/yyzx/dtk4.png") no-repeat, url("../../../static/images/yyzx/dtk3.png") 100% 0 no-repeat,
-    url("../../../static/images/yyzx/dtk2.png") 0 100% no-repeat, url("../../../static/images/yyzx/dtk1.png") 100% 100% no-repeat;
-  }
-  .jcssBox {
-    width: 100%;
-    height: 320px;
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-around;
-    .jcss-charts {
-      height: 100%;
-      width: calc(~"100% - 130px");
-      .jcss-chart {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-        //&.top {
-        //  height: 40%;
-        //}
-        .bar-title {
-          .xhable;
-        }
-        .bar-chart {
-          width: calc(~"100% - 40px");
-          height: 100%;
-        }
-      }
-    }
-    .jcss-tz {
-      width: 120px;
-      height: 100%;
-      text-align: center;
-      font-size: 14px;
-      span {
-        font-weight: bold;
-        font-size: 16px;
-      }
-      .jcss-tz-box {
-        width: 100%;
-        margin-top: 20px;
-        height: calc(~"100% - 40px");
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        &::before, &::after {
-          content: url("../../../static/images/yyzx/sk1.png");
-        }
-        &::after {
-          transform: rotatex(180deg);
-          position: relative;
-          top: -20px;
-        }
-      }
-    }
-  }
-}
-
-.jzhj-box {
-  .columnFlex;
-  .jsl-box {
-    display: flex;
-    color: #ffffff;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: -5px;
-    .jsl-title {
-      font-size: 14px;
-    }
-    .jsl-icon {
-      background: url("../../../static/images/yyzx/rain-blue.png") no-repeat;
-      background-size: contain;
-      margin-left: 8px;
-      width: 12px;
-      height: 20px;
-      float: left;
-      &.red {
-        background: url("../../../static/images/yyzx/rain-red.png") no-repeat;
-        background-size: contain;
-      }
-    }
-    .jsl-num {
-      font-size: 24px;
-    }
-  }
-  .sh-wrw {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    height: 230px;
-    .radar-box {
-      display: flex;
-      height: 100%;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      .radar-chart {
-        width: calc(~"100% - 20px");
-        height: calc(~"100% - 60px");
-        background-color: #5DA2F1;
-        position: absolute;
-        bottom: 25px;
-        left: 10px;
-      }
-    }
-    .kq-qa {
-      .radar-box;
-    }
-  }
-  .gauge-box {
-    display: flex;
-    justify-content: space-around;
-  }
-  .sh-ul {
-    width: 100%;
-    height: 100%;
-    margin-top: -5px;
-    color: #ffffff;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .sh-chart {
-    width: 100%;
-    height: 100%;
-    margin-top: -5px;
-  }
-}
-
-//二级页面地图样式
-.sec-map {
-  float: left;
-  width: 100%;
-  height: calc(~"100% - 280px");
-  background: url("../../../static/images/yyzx/fz-map-lt.png") no-repeat, url("../../../static/images/yyzx/fz-map-rt.png") 100% 0 no-repeat,
-  url("../../../static/images/yyzx/fz-map-lb.png") 0 100% no-repeat, url("../../../static/images/yyzx/fz-map-rb.png") 100% 100% no-repeat;
-}
-
-.search-box {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 210px;
-  height: 24px;
-  border: 1px solid #195fb5;
-  z-index: 10000;
-  input {
-    border: none;
-    height: 22px;
-    width: 210px;
-    background-color: rgba(25, 95, 181, .4);
-    color: #ffffff;
-    padding: 10px;
-    padding-right: 32px;
-  }
-  .icon {
-    position: absolute;
-    background: url("../../../static/images/zhfx/search.png") no-repeat;
-    height: 18px;
-    width: 18px;
-    top: 2px;
-    right: 8px;
-    cursor: pointer;
-  }
-}
-
-.search-list {
-  position: absolute;
-  top: 42px;
-  right: 20px;
-  z-index: 10000;
-  .search-result {
-    height: 35px;
-    width: 210px;
-    line-height: 35px;
-    padding-left: 10px;
-    border: 1px solid #195fb5;
-    background-color: rgba(25, 95, 181, .4);
-  }
-  .search-items {
-    float: left;
-    width: 210px;
-    border: 1px solid #195fb5;
-    background-color: rgba(25, 95, 181, .4);
-    margin-top: 10px;
-    max-height: 320px;
-    overflow: auto;
-    .search-item {
-      float: left;
-      width: 100%;
-      height: 30px;
-      line-height: 30px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      cursor: pointer;
-      &:nth-child(2n) {
-        background-color: rgba(125, 95, 181, .4);
-      }
-      .name {
-        padding-left: 10px;
-      }
-    }
   }
 }

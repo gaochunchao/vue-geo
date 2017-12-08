@@ -1,0 +1,65 @@
+@xBorder: ~"@{css-prefix}irBorder";
+@images: "../../images/box";
+.top(@size) {
+  background+: url("@{images}/@{size}btl.png") no-repeat;
+}
+
+.right(@size) {
+  background+: url("@{images}/@{size}btr.png") 100% 0 no-repeat;
+}
+
+.bottom() {
+  background+: url("@{images}/bbl.png") 0 100% no-repeat;
+}
+
+.left() {
+  background+: url("@{images}/bbr.png") 100% 100% no-repeat;
+}
+
+.@{xBorder} {
+  float: left;
+  position: relative;
+  &-small {
+    .top('');
+    .right('');
+    .bottom();
+    .left();
+    width: 398px;
+    height: 100px;
+  }
+  &-middle {
+    .top('m-');
+    .right('m-');
+    .bottom();
+    .left();
+    width: 1000px;
+    height: 100px;
+  }
+  &-big {
+    .top('b-');
+    .right('b-');
+    .bottom();
+    .left();
+    width: 1400px;
+    height: 300px;
+  }
+  &-title {
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    position: absolute;
+    text-align: center;
+    top: -11px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  &-main {
+    float: left;
+    height: calc(~"100% - 13px");
+    margin-top: 11px;
+    width: 100%;
+    padding: 10px;
+    border-left: 1px solid rgb(101, 226, 244);
+    border-right: 1px solid rgb(101, 226, 244);
+  }
+}

@@ -42,7 +42,10 @@
       // 饼形图横向或者纵向
       type: {
         type: String,
-        default: "v"
+        default: "v",
+        validator(value) {
+          return oneOf(value, ["v", "h"]);
+        }
       },
       // 是否默认被选中状态
       selected: {
@@ -56,7 +59,7 @@
       },
       colors: {
         type: Array,
-        default: ["#22afc3", "#ff6633"]
+        default: ["#25d4e7", "#fe6b40", "#6bb592"]
       },
       // 内外环的直径
       radius: {
@@ -82,15 +85,20 @@
         type: String,
         default: "#000"
       },
+      // 副标题的颜色
+      secTextCor: {
+        type: String,
+        default: "#000"
+      },
       // 是否显示中间数字
       qty: {
         type: Boolean,
-        default: true
+        default: false
       },
       // 自定义中间数字显示内容
       secText: {
         type: String,
-        default: " "
+        default: ""
       },
       // 中间文字大小
       textFont: {
@@ -98,9 +106,19 @@
         default: 16
       },
       // 饼形图展现形式
-      style: {
+      kind: {
         type: String,
-        default: "normalPie"
+        default: "normalPie",
+        validator(value) {
+          return oneOf(value, ["normalPie", "overlayPie"]);
+        }
+      },
+      // 开始旋转的角度
+      startAngle: {
+        type: Array,
+        default: () => {
+          return [40, 30, 60];
+        }
       }
     },
     data() {
@@ -165,7 +183,7 @@
     methods: {
       chart() {
         let sum = 0;
-        if (this.style === "normalPie") {
+        if (this.kind === "normalPie") {
           eCharts.util.each(this.itemData, (item, index) => {
             item.itemStyle = {
               normal: {
@@ -183,7 +201,7 @@
             {
               text: this.text.replace("\\n", "\n"), //通过传入\n可使标题换行
               left: "center",
-              top: this.text && this.qty ? "40%" : "47%",
+              top: this.text && (this.qty || this.secText) ? "40%" : "45%",
               textBaseline: "middle",
               textStyle: {
                 color: this.titleCor,
@@ -193,12 +211,12 @@
             },
             {
               text: this.secText ? this.secText : sum,
-              show: this.text && this.qty ? true : false,
+              show: this.text && (this.qty || this.secText) ? true : false,
               left: "center",
               top: "55%",
               textBaseline: "middle",
               textStyle: {
-                color: "#73e2ed",
+                color: this.secTextCor,
                 fontWeight: "normal",
                 fontSize: 16,
                 fontFamily: "AgencyFBBold"
@@ -230,7 +248,7 @@
             }
           ]
         };
-        if (this.style == "overlayPie") {
+        if (this.kind == "overlayPie") {
           let series = [];
           eCharts.util.each(this.itemData, (item, index) => {
             series.push({
@@ -243,8 +261,8 @@
                   color: this.colors[index],
                   label: {show: false},
                   labelLine: {show: false},
-                  shadowBlur: 40,
-                  shadowColor: "rgba(40, 40, 40, 0.5)"
+                  shadowBlur: 0,
+                  shadowColor: "rgba(0, 0, 0, 0)"
                 }
               },
               hoverAnimation: false,
@@ -270,6 +288,10 @@
               ]
             });
           });
+          option.series = series;
+          option.tooltip = {
+            show: false
+          };
         }
         const chart = eCharts.init(this.$refs.pieChart);
         chart.setOption(option);
@@ -277,80 +299,3 @@
     }
   };
 </script>
-<style type="text/less" lang="less">
-  .geo-pie-v {
-    .geo-pie {
-      float: left;
-      height: 100%;
-      /*width: 45%;*/
-    }
-    .geo-pie-legend {
-      float: left;
-      height: 100%;
-      /*width: 55%;*/
-      padding: 10px 0;
-      &-li {
-        float: left;
-        width: 100%;
-      }
-      &-name {
-        float: left;
-        overflow: hidden;
-        height: 100%;
-        font-size: 14px;
-      }
-      &-num {
-        float: right;
-        font-size: 16px;
-        margin-right: 15px;
-      }
-      &-icon {
-        float: left;
-        font-size: 16px;
-        width: 14px;
-        height: 14px;
-        background-color: #fff;
-        text-align: left;
-        margin-right: 5px;
-      }
-    }
-  }
-
-  .geo-pie-h {
-    .geo-pie {
-      float: left;
-      height: 100%;
-      width: 100%;
-    }
-    .geo-pie-legend {
-      float: left;
-      height: 100%;
-      width: 100%;
-      padding: 10px 0;
-      &-li {
-        float: left;
-        width: 100%;
-      }
-      &-name {
-        float: left;
-        width: 50%;
-        overflow: hidden;
-        height: 100%;
-        font-size: 14px;
-      }
-      &-num {
-        float: left;
-        font-size: 16px;
-      }
-      &-icon {
-        float: left;
-        font-size: 16px;
-        width: 14px;
-        height: 14px;
-        background-color: #fff;
-        text-align: left;
-        margin-right: 5px;
-      }
-    }
-  }
-</style>

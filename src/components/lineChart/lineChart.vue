@@ -23,7 +23,10 @@
       // 可设置为折线图或者柱状图
       type: {
         type: String,
-        default: "normalLine"
+        default: "normalLine",
+        validator(value) {
+          return oneOf(value, ["normalLine", "assumed1", "assumed2", "assumed3"]);
+        }
       },
       //图例
       legend: {
@@ -112,18 +115,30 @@
       // X轴Y轴的文字颜色
       axisLalClr: String,
       // 背景分割线颜色
-      splitLineClr: String,
+      splitLineClr: {
+        type: String,
+        default: "lightgrey"
+      },
       // 图表数据太多需要使用的滚动条和缩放效果,设置这个之后需要设置gridBottom，让滚动条显示在数据下方
       isDataZoom: {
         type: Boolean,
         default: false
       },
       // 滚动条填充颜色
-      zoomFillCrl: String,
+      zoomFillCrl: {
+        type: String,
+        default: "grey"
+      },
       // 滚动条背景色
-      zoomBgcCrl: String,
+      zoomBgcCrl: {
+        type: String,
+        default: "#fff"
+      },
       // 滚动条边框色
-      zoomBorCrl: String,
+      zoomBorCrl: {
+        type: String,
+        default: "grey"
+      },
       // 数据窗口范围的起始百分比
       zoomStart: {
         type: Number,
@@ -134,30 +149,45 @@
         type: Number,
         default: 50
       },
-      // 图表高度
-      gridHeight: Number,
-      // 图表宽度
-      gridWidth: Number,
-      // 图表距离左侧的位置
-      gridLeft: {
-        type: Number,
-        default: 10
+      // 整个图标的宽高，以及距上下左右的边距
+      grid: {
+        type: Object,
+        default: function () {
+          return {
+            height: Number,
+            width: Number,
+            top: 30,
+            bottom: 5,
+            left: 10,
+            right: 15,
+            containLabel: true
+          };
+        }
       },
-      // 图表距离右侧的位置
-      gridRight: {
-        type: Number,
-        default: 15
-      },
-      // 图表距离底部的距离
-      gridBottom: {
-        type: Number,
-        default: 5
-      },
-      // 图表距离顶部的距离
-      gridTop: {
-        type: Number,
-        default: 40
-      },
+      // // 图表高度
+      // gridHeight: Number,
+      // // 图表宽度
+      // gridWidth: Number,
+      // // 图表距离左侧的位置
+      // gridLeft: {
+      //   type: Number,
+      //   default: 10
+      // },
+      // // 图表距离右侧的位置
+      // gridRight: {
+      //   type: Number,
+      //   default: 15
+      // },
+      // // 图表距离底部的距离
+      // gridBottom: {
+      //   type: Number,
+      //   default: 5
+      // },
+      // // 图表距离顶部的距离
+      // gridTop: {
+      //   type: Number,
+      //   default: 40
+      // },
       // 定义X轴刻度的格式（文字太多设置换行）
       axisLabFmt: {
         type: Boolean,
@@ -165,11 +195,6 @@
       },
       // 定义X轴刻度每行显示的字数,默认为2个
       wordsNum: Number,
-      // 是否有预测
-      isAssumed: {
-        type: Boolean,
-        default: false
-      },
       //tooltip的文字格式化
       tooltipFmt: {
         type: Function,
@@ -179,7 +204,7 @@
               return params[i].seriesName + params[i].value[1];
             }
           }
-          return 'loading';
+          return "loading";
         }
       },
       //normalLine是否填充
@@ -191,7 +216,11 @@
       aColors: {
         type: Array,
         default() {
-          return [["#25d4e7", "#25d4e7"], ["#fe6b40", "#fe6b40"], ["#6bb592", "#6bb592"]]
+          return [
+            ["#25d4e7", "#25d4e7"],
+            ["#fe6b40", "#fe6b40"],
+            ["#6bb592", "#6bb592"]
+          ];
         }
       }
     },
@@ -214,7 +243,7 @@
           lineStyle: {
             color: this.splitLineClr ? this.splitLineClr : "rgba(255,255,255,0.6)"
           }
-        },
+        }
       };
     },
     computed: {
@@ -246,11 +275,11 @@
     methods: {
       chart() {
         let series = [];
-        if (this.type == 'normalLine') {
+        if (this.type == "normalLine") {
           this.series.forEach((item, index) => {
             const json = {
               name: this.legend[index],
-              type: 'line',
+              type: "line",
               data: item,
               symbol: "circle",
               symbolSize: 10,
@@ -262,37 +291,41 @@
                 }
               }
             };
-            if (this.type == 'assumed2') {
+            if (this.type == "assumed2") {
               if (index % 2 !== 0) {
                 json.lineStyle = {
                   normal: {
-                    type: 'dashed',
+                    type: "dashed"
                     // color: this.colors[index-1]
                   }
                 };
               } else {
                 json.lineStyle = {
                   normal: {
-                    type: 'solid',
+                    type: "solid"
                     // color: this.colors[index]
                   }
-                }
+                };
                 json.tooltip = {
                   show: false
-                }
+                };
               }
             }
-            ;
             if (this.fillCor) {
-              let aColor = [{
-                offset: 0, color: this.aColors[index][0]
-              }, {
-                offset: 1, color: this.aColors[index][1]
-              }]
+              let aColor = [
+                {
+                  offset: 0,
+                  color: this.aColors[index][0]
+                },
+                {
+                  offset: 1,
+                  color: this.aColors[index][1]
+                }
+              ];
               json.areaStyle = {
                 normal: {
                   color: {
-                    type: 'linear',
+                    type: "linear",
                     x: 0,
                     y: 0,
                     x2: 0,
@@ -306,10 +339,13 @@
             if (this.stack) {
               json.stack = "总量";
             }
-            ;
             series.push(json);
           });
-        } else if (this.type == 'assumed1' || this.type == 'assumed2' || this.type == 'assumed3') {
+        } else if (
+          this.type == "assumed1" ||
+          this.type == "assumed2" ||
+          this.type == "assumed3"
+        ) {
           let yAxis = [],
             data = [],
             seriesItem;
@@ -322,33 +358,46 @@
               if (st == item[i].status) {
                 data.push([this.xAxis[i], item[i].value]);
               }
-              if (st != item[i].status || (i == item.length - 1)) {
-                let name1 = st == 1 ? '预测' : "实际";
-                let color = '';
-                let type = '';
+              if (st != item[i].status || i == item.length - 1) {
+                let name1 = st == 1 ? "预测" : "实际";
+                let color = "";
+                let type = "";
                 let aColor = [];
-                if (this.type == 'assumed1') {
+                if (this.type == "assumed1") {
                   color = st == 1 ? this.colors[1] : this.colors[0];
-                  type = st == 1 ? 'dashed' : 'solid';
-                  aColor = st == 1 ? [{
-                    offset: 0, color: this.colors[4]
-                  }, {
-                    offset: 1, color: this.colors[5]
-                  }] : [{
-                    offset: 0, color: this.colors[2]
-                  }, {
-                    offset: 1, color: this.colors[3]
-                  }]
-                } else if (this.type == 'assumed2') {
+                  type = st == 1 ? "dashed" : "solid";
+                  aColor =
+                    st == 1
+                      ? [
+                      {
+                        offset: 0,
+                        color: this.colors[4]
+                      },
+                      {
+                        offset: 1,
+                        color: this.colors[5]
+                      }
+                    ]
+                      : [
+                      {
+                        offset: 0,
+                        color: this.colors[2]
+                      },
+                      {
+                        offset: 1,
+                        color: this.colors[3]
+                      }
+                    ];
+                } else if (this.type == "assumed2") {
                   color = this.colors[index];
-                  type = st == 1 ? 'dashed' : 'solid';
-                } else if (this.type == 'assumed3') {
+                  type = st == 1 ? "dashed" : "solid";
+                } else if (this.type == "assumed3") {
                   color = st == 1 ? this.colors[1] : this.colors[0];
-                  type = 'solid';
+                  type = "solid";
                 }
                 seriesItem = {
                   name: name1,
-                  type: 'line',
+                  type: "line",
                   smooth: true,
                   symbolSize: 7,
                   data: data,
@@ -362,15 +411,15 @@
                     normal: {
                       color: color,
                       borderWidth: 2,
-                      borderType: 'solid'
+                      borderType: "solid"
                     }
                   }
                 };
-                if (this.type == 'assumed1') {
+                if (this.type == "assumed1") {
                   seriesItem.areaStyle = {
                     normal: {
                       color: {
-                        type: 'linear',
+                        type: "linear",
                         x: 0,
                         y: 0,
                         x2: 0,
@@ -382,15 +431,13 @@
                   };
                 }
                 series.push(seriesItem);
-                data = [
-                  [this.xAxis[i - 1], item[i - 1].value]
-                ];
+                data = [[this.xAxis[i - 1], item[i - 1].value]];
 
                 data.push([this.xAxis[i], item[i].value]);
                 st = item[i].status;
               }
             }
-          })
+          });
         }
         if (this.forceGap == true) {
           this.boundaryGap = true;
@@ -411,72 +458,47 @@
             right: 15,
             data: this.legend
           },
-          grid: {
-            top: this.gridTop,
-            left: this.gridLeft,
-            right: this.gridRight,
-            bottom: this.gridBottom,
-            height: this.gridHeight,
-            width: this.gridWidth,
-            containLabel: true
-          },
-          xAxis: [{
-            type: "category",
-            name: this.xName,
-            boundaryGap: this.boundaryGap,
-            data: this.xAxis,
-            axisTick: {
-              show: false
-            },
-            splitLine: this.splitLine,
-            axisLabel: this.axisLabel,
-            axisLine: this.axisLine
-          }],
-          yAxis: [{
-            type: "value",
-            name: this.yName,
-            min: this.min,
-            max: this.max,
-            nameTextStyle: {
-              color: "#ffffff"
-            },
-            axisTick: {
-              show: false
-            },
-            splitLine: this.splitLine,
-            splitNumber: 4,
-            axisLabel: this.axisLabel,
-            axisLine: this.axisLine
-          }],
+          grid: this.grid,
+          xAxis: [
+            {
+              type: "category",
+              name: this.xName,
+              boundaryGap: this.boundaryGap,
+              data: this.xAxis,
+              axisTick: {
+                show: false
+              },
+              splitLine: this.splitLine,
+              axisLabel: this.axisLabel,
+              axisLine: this.axisLine
+            }
+          ],
+          yAxis: [
+            {
+              type: "value",
+              name: this.yName,
+              min: this.min,
+              max: this.max,
+              nameTextStyle: {
+                color: "#ffffff"
+              },
+              axisTick: {
+                show: false
+              },
+              splitLine: this.splitLine,
+              splitNumber: 4,
+              axisLabel: this.axisLabel,
+              axisLine: this.axisLine
+            }
+          ],
           series: series
         };
-        if (this.type == 'assumed1' || this.type == 'assumed2') {
+        if (this.type == "assumed1" || this.type == "assumed2") {
           option.tooltip.axisPointer = {
-            type: 'cross'
+            type: "cross"
           };
-          option.tooltip.formatter = this.tooltipFmt
+          option.tooltip.formatter = this.tooltipFmt;
         }
-        // if(this.type == 'assumed2'){
-        //   let visualMap = [];
-        //   this.series.forEach((item, index) => {
-        //     if(index % 2 == 0) {
-        //       visualMap.push({
-        //           show: false,
-        //           seriesIndex: index,
-        //           dimension: 0,
-        //           pieces: [{
-        //               gt: 0,
-        //               lte: 5,
-        //               color: this.colors[index]
-        //           }, {
-        //               gt: 5,
-        //               color: 'transparent'
-        //           }]
-        //       })
-        //     }
-        //   })
-        //     option.visualMap = visualMap;
-        // };
         // 设置X轴名字
         if (this.xName) {
           option.xAxis[0].name = this.xName;
@@ -486,7 +508,6 @@
           option.xAxis[0].nameLocation = "start";
           option.xAxis[0].nameGap = "20";
         }
-        ;
         // 是否隐藏X和Y轴的刻度和线条
         if (this.isHidden) {
           option.xAxis[0] = {
@@ -511,7 +532,31 @@
             show: false
           };
         }
-        ;
+        // X轴的显示字数是否要换行
+        if (this.axisLabFmt) {
+          option.xAxis[0].axisLabel.formatter = (params) => {
+            let newParamsName = "";
+            let paramsNameNumber = params.length;
+            let provideNumber = this.wordsNum ? this.wordsNum : 2;
+            let rowNumber = Math.ceil(paramsNameNumber / provideNumber);
+            if (paramsNameNumber > provideNumber) {
+              for (let p = 0; p < rowNumber; p++) {
+                let tempStr = "";
+                let start = p * provideNumber;
+                let end = start + provideNumber;
+                if (p == rowNumber - 1) {
+                  tempStr = params.substring(start, paramsNameNumber);
+                } else {
+                  tempStr = params.substring(start, end) + "\n";
+                }
+                newParamsName += tempStr;
+              }
+            } else {
+              newParamsName = params;
+            }
+            return newParamsName;
+          };
+        }
         // 图例位置
         switch (this.legPos) {
           case "left":
@@ -523,7 +568,6 @@
             option.legend.right = 15;
             break;
         }
-        ;
         // 设置滚动条
         if (this.isDataZoom) {
           option.dataZoom = [
@@ -549,11 +593,10 @@
               xAxisIndex: [0],
               filterMode: "weakFilter",
               start: this.zoomStart ? this.zoomStart : 0,
-              end: this.zoomEnd ? this.zoomEnd : 50,
+              end: this.zoomEnd ? this.zoomEnd : 50
             }
           ];
         }
-        ;
         const chart = eCharts.init(this.$refs.lineChart);
         chart.setOption(option);
       }

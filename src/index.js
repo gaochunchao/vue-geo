@@ -1,13 +1,24 @@
+
 import barChart from "./components/barChart";
 import lineChart from "./components/lineChart";
 import pieChart from "./components/pieChart";
 import xMultipleRing from "./components/xMultipleRing"
+import cirPross from "./components/cirPross"
+import gauge from "./components/gauge"
+import irBorder from "./components/irBorder"
+import shadowBorder from "./components/shadowBorder"
+import iconBox from "./components/iconBox"
 
 const components = {
   barChart,
   lineChart,
   pieChart,
-  xMultipleRing
+  xMultipleRing,
+  cirPross,
+  gauge,
+  irBorder,
+  shadowBorder,
+  iconBox
 }
 
 const geoView = {
@@ -22,9 +33,8 @@ function install(Vue, _) {
 
 
 const API = {
-  version: process.env.VERSION,
   install,
   ...components
 }
 
-module.exports.default = module.exports = API;
+module.exports.default = module.exports = API;   // eslint-disable-line no-undef

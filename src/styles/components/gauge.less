@@ -1,0 +1,34 @@
+@gauge: ~"@{css-prefix}gauge";
+.@{gauge} {
+  &-chart {
+    float: left;
+    position: relative;
+    &-split {
+      margin: 0 auto;
+    }
+    &-jt {
+      position: absolute;
+      bottom: -15px;
+      left: calc(50% - 3px);
+      transform: rotateZ(-90deg);
+    }
+  }
+  &-text {
+    width: 100%;
+    float: left;
+    text-align: center;
+    color: #000;
+    &-percent {
+      font-size: 24px;
+      height: 30px;
+      line-height: 30px;
+      width: 100%;
+      float: left;
+      font-family: 'AgencyFBBold';
+    }
+    &-name {
+      font-size: 14px;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+@table: ~"@{css-prefix}table";
+.@{table} {
+  &-header {
+    float: left;
+    width: 100%;
+    li {
+      float: left;
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+      height: 100%;
+      border: 1px solid rgba(0, 0, 0, 0);
+      border-right: none;
+      width: 100%;
+      &:last-child {
+        border-right: 1px solid rgba(0, 0, 0, 0);
+      }
+    }
+  }
+  &-body::-webkit-scrollbar {
+    width: 0px
+  }
+  &-body {
+    float: left;
+    width: 100%;
+    overflow: auto;
+    /*隐藏滚动条，当IE下溢出，仍然可以滚动*/
+    -ms-overflow-style: none;
+    /*火狐下隐藏滚动条*/
+    overflow: -moz-scrollbars-auto;
+    /*overflow: hidden;*/
+    li {
+      float: left;
+      color: #fff;
+      text-align: center;
+      width: 100%;
+      height: 28px;
+      line-height: 28px;
+      border: 1px solid rgba(0, 0, 0, 0);
+      border-bottom: none;
+      width: 100%;
+      &:last-child {
+        border-bottom: 1px solid #22afc3;
+      }
+      .@{table}-td {
+        float: left;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        span {
+          display: inline-block;
+          line-height: 20px;
+          vertical-align: middle;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+        img {
+          position: absolute;
+          top: 50%;
+          left: 25px;
+          transform: translateY(-50%);
+        }
+      }
+    }
+    // .@{table}-highLight{
+    //     color:"red"
+    // }
+  }
+}

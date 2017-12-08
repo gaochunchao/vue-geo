@@ -70,7 +70,7 @@
       colorList: {
         type: Array,
         default() {
-          return [];
+          return ["#25d4e7", "#fe6b40", "#6bb592"];
         }
       },
       series: {
@@ -85,11 +85,20 @@
         default: false
       },
       // 滚动条填充颜色
-      zoomFillCrl: String,
+      zoomFillCrl: {
+        type: String,
+        default: "grey"
+      },
       // 滚动条背景色
-      zoomBgcCrl: String,
+      zoomBgcCrl: {
+        type: String,
+        default: "#fff"
+      },
       // 滚动条边框色
-      zoomBorCrl: String,
+      zoomBorCrl: {
+        type: String,
+        default: "grey"
+      },
       // 数据窗口范围的起始百分比
       zoomStart: {
         type: Number,
@@ -100,29 +109,20 @@
         type: Number,
         default: 50
       },
-      // 图表高度
-      gridHeight: Number,
-      // 图表宽度
-      gridWidth: Number,
-      // 图表距离左侧的位置
-      gridLeft: {
-        type: Number,
-        default: 10
-      },
-      // 图表距离右侧的位置
-      gridRight: {
-        type: Number,
-        default: 15
-      },
-      // 图表距离底部的距离
-      gridBottom: {
-        type: Number,
-        default: 5
-      },
-      // 图表距离顶部的距离
-      gridTop: {
-        type: Number,
-        default: 30
+      // 整个图标的宽高，以及距上下左右的边距
+      grid: {
+        type: Object,
+        default: function () {
+          return {
+            height: Number,
+            width: Number,
+            top: 30,
+            bottom: 5,
+            left: 10,
+            right: 15,
+            containLabel: true
+          };
+        }
       },
       // 定义X轴刻度的格式（文字太多设置换行）
       axisLabFmt: {
@@ -177,7 +177,10 @@
       // X轴Y轴的文字颜色
       axisLalClr: String,
       // 背景分割线颜色
-      splitLineClr: String
+      splitLineClr: {
+        type: String,
+        default: "lightgrey"
+      }
     },
     data() {
       return {
@@ -193,7 +196,11 @@
             color: this.axisLineClr ? this.axisLineClr : "rgba(101,226,244,.5)"
           }
         },
-        splitLine: {lineStyle: {color: this.splitLineClr ? this.splitLineClr : "rgba(255,255,255,0.6)"}},
+        splitLine: {
+          lineStyle: {
+            color: this.splitLineClr ? this.splitLineClr : "rgba(255,255,255,0.6)"
+          }
+        },
         chart: null
       };
     },
@@ -373,22 +380,14 @@
           },
           animationEasing: "sinusoidalInOut",
           animationDuration: 1500,
-          grid: {
-            top: this.gridTop,
-            left: this.gridLeft,
-            right: this.gridRight,
-            bottom: this.gridBottom,
-            height: this.gridHeight,
-            width: this.gridWidth,
-            containLabel: true
-          },
+          grid: this.grid,
           xAxis: [
             {
               type: "category",
               axisLabel: this.axisLabel,
               axisLine: this.axisLine,
               data: this.xAxis,
-              splitLine: this.splitLine,
+              splitLine: this.splitLine
             }
           ],
           yAxis: [
@@ -408,7 +407,7 @@
         };
         // X轴的显示字数是否要换行
         if (this.axisLabFmt) {
-          option.xAxis[0].axisLabel.formatter = (params) => {
+          option.xAxis[0].axisLabel.formatter = params => {
             let newParamsName = "";
             let paramsNameNumber = params.length;
             let provideNumber = this.wordsNum ? this.wordsNum : 2;
@@ -542,7 +541,7 @@
               xAxisIndex: [0],
               filterMode: "weakFilter",
               start: this.zoomStart ? this.zoomStart : 0,
-              end: this.zoomEnd ? this.zoomEnd : 50,
+              end: this.zoomEnd ? this.zoomEnd : 50
             }
           ];
         }
