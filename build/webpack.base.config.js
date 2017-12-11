@@ -56,7 +56,20 @@ module.exports = {
           'sass-loader?sourceMap'
         ]
       },
-      {test: /\.(gif|jpg|png|woff|svg|eot|otf|ttf)\??.*$/, loader: 'url-loader?limit=8192'},
+      {
+        test: /\.(gif|jpg|png)\??.*$/, loader: 'url-loader',
+        query: {
+          limit: 8192,
+          name: 'images/[name].[hash:7].[ext]'
+        }
+      },
+      {
+        test: /\.(woff|svg|eot|otf|ttf)\??.*$/, loader: 'url-loader',
+        query: {
+          limit: 8192,
+          name: 'fonts/[name].[hash:7].[ext]'
+        }
+      },
       {test: /\.(html|tpl)$/, loader: 'html-loader'}
     ]
   },
