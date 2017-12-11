@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="cirPross" :class="classes" :width="(radii+lineWidth)*2" :height="(radii+lineWidth)*2"></canvas>
+  <canvas ref="cirPross" :class="classes" :width="(radius+lineWidth)*2" :height="(radius+lineWidth)*2"></canvas>
 </template>
 <script>
 const prefixCls = "geo-cirPross";
@@ -12,7 +12,7 @@ export default {
       type: Number | String,
       default: 95
     },
-    radii: {
+    radius: {
       //内环半径
       type: Number,
       default: 38
@@ -76,8 +76,8 @@ export default {
   },
   mounted() {
     const canvas = this.$refs.cirPross;
-    const marginTop = canvas.clientHeight / 2 - this.radii;
-    const marginLeft = canvas.clientWidth / 2 - this.radii;
+    const marginTop = canvas.clientHeight / 2 - this.radius;
+    const marginLeft = canvas.clientWidth / 2 - this.radius;
     this.canvaStyle = {
       marginTop: `${marginTop}px`,
       marginLeft: `${marginLeft}px`
@@ -112,7 +112,7 @@ export default {
       this.ctx.arc(
         this.centerX,
         this.centerY,
-        this.radii,
+        this.radius,
         -Math.PI / 2,
         -Math.PI / 2 + n * this.rad,
         false
@@ -132,7 +132,7 @@ export default {
       this.ctx.arc(
         this.centerX,
         this.centerY,
-        this.radii,
+        this.radius,
         0,
         Math.PI * 2,
         false
@@ -153,7 +153,6 @@ export default {
         (isNaN(n) ? n : n.toFixed(0)) + "%",
         this.centerX - x,
         this.centerY + 10
-       
       );
       this.ctx.restore();
     }

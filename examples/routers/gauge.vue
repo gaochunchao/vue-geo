@@ -1,7 +1,9 @@
 <template>
   <div>
     <span>仪表盘</span>
-    <gauge name="污水处理率" :percent="60"></gauge>
+    <gauge :percent="60" :animated=false>
+      污水处理率
+    </gauge>
   </div>
 </template>
 <script>
