@@ -2,10 +2,7 @@
 <template>
     <div>
         <span>柱状图</span>
-        <bar-chart :legend="lrZe.legend" :xAxis="lrZe.xAxis" :colorList="lrZe.colorList" :series="lrZe.series" :barWidth="15" legPos="left" :axisLabFmt="true" :wordsNum="3" :axisLineClr="'#000'" :axisLalClr="'#000'" :legCrl="'#000'" :avDataBar="lrZe.avdata" :avLineCrl="lrZe.avLineCrl" :isDataZoom="true" :grid="lrZe.grid" ></bar-chart>
-        <!-- <bar-chart :colors="barChart.colorList"
-                     :yAxis="barChart.yAxis" name="管线长度统计" unit="km" :barWidth=25
-                     :series="barChart.series" :gridWidth="barChart.gridWidth"></bar-chart> -->
+        <bar-chart :legend="lrZe.legend" :xAxis="lrZe.xAxis" :colorList="lrZe.colorList" :series="lrZe.series" :barWidth="15" legPos="left" :axisLabFmt="true" :wordsNum="3" :avDataBar="lrZe.avdata" :avLineCrl="lrZe.avLineCrl" :isDataZoom="true" :grid="{bottom:50}" :tLabel="{show:false}"></bar-chart>
     </div>
 </template>
 <script>

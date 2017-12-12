@@ -3,7 +3,7 @@
         <span>饼形图</span>
         <pieChart text="经济" :colors="fsPie.colors" :itemData="fsPie.itemData" :selected="false" unit="%" :kind="'overlayPie'"
         :radius="[['40%','60%'],['50%','70%'],['60%','80%']]"></pieChart>
-        <pieChart :type="'h'" :height="150" :width="180" :colors="fsPie.colors" :itemData="fsPie.itemData" :selected="false" :radius='[25, 35]' unit="%"></pieChart>
+        <pieChart :type="'h'" :height="200" :width="180" :colors="fsPie.colors" :itemData="fsPie.itemData" :selected="false" :radius='[25, 35]' unit="%"></pieChart>
     </div>
 </template>
 <script>

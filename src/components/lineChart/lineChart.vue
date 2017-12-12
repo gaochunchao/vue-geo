@@ -36,7 +36,10 @@ export default {
       }
     },
     // 图例文字颜色
-    legCrl: String,
+    legCrl:{
+      type:String,
+      default:"#000"
+    },
     // 图例位置
     legPos: {
       type: String,
@@ -111,13 +114,19 @@ export default {
       default: null
     },
     // X轴Y轴刻度线颜色及文字背景色
-    axisLineClr: String,
+    axisLineClr:{
+      type:String,
+      default:"#000"
+    },
     // X轴Y轴的文字颜色
-    axisLalClr: String,
+    axisLalClr:{
+      type:String,
+      default:"#000"
+    },
     // 背景分割线颜色
-    splitLineClr: {
-      type: String,
-      default: "lightgrey"
+    splitLineClr:{
+      type:String,
+      default:"#ddd"
     },
     // 图表数据太多需要使用的滚动条和缩放效果,设置这个之后需要设置gridBottom，让滚动条显示在数据下方
     isDataZoom: {
@@ -164,30 +173,6 @@ export default {
         };
       }
     },
-    // // 图表高度
-    // gridHeight: Number,
-    // // 图表宽度
-    // gridWidth: Number,
-    // // 图表距离左侧的位置
-    // gridLeft: {
-    //   type: Number,
-    //   default: 10
-    // },
-    // // 图表距离右侧的位置
-    // gridRight: {
-    //   type: Number,
-    //   default: 15
-    // },
-    // // 图表距离底部的距离
-    // gridBottom: {
-    //   type: Number,
-    //   default: 5
-    // },
-    // // 图表距离顶部的距离
-    // gridTop: {
-    //   type: Number,
-    //   default: 40
-    // },
     // 定义X轴刻度的格式（文字太多设置换行）
     axisLabFmt: {
       type: Boolean,
@@ -230,18 +215,18 @@ export default {
       axisLabel: {
         interval: 0,
         textStyle: {
-          color: this.axisLalClr ? this.axisLalClr : "#ffffff"
+          color: this.axisLalClr
         }
       },
       axisLine: {
         lineStyle: {
-          color: this.axisLineClr ? this.axisLineClr : "rgba(101,226,244,.5)"
+          color: this.axisLineClr
         }
       },
       splitLine: {
         show: this.sShow,
         lineStyle: {
-          color: this.splitLineClr ? this.splitLineClr : "rgba(255,255,255,0.6)"
+          color: this.splitLineClr
         }
       }
     };
@@ -451,7 +436,7 @@ export default {
         legend: {
           show: this.legShow,
           textStyle: {
-            color: this.legCrl ? this.legCrl : "#ffffff"
+            color: this.legCrl
           },
           itemWidth: 12,
           itemHeight: 12,
@@ -503,7 +488,7 @@ export default {
       if (this.xName) {
         option.xAxis[0].name = this.xName;
         option.xAxis[0].nameTextStyle = {
-          color: this.axisLalClr ? this.axisLalClr : "#fff"
+          color: this.axisLalClr
         };
         option.xAxis[0].nameLocation = "start";
         option.xAxis[0].nameGap = "20";

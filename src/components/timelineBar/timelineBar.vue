@@ -20,13 +20,6 @@ export default {
       type: [Number, String],
       default: 300
     },
-    //图例
-    legend: {
-      type: Array,
-      default() {
-        return ["孝感", "孝感东", "孝感北"];
-      }
-    },
     // 选择柱状或者折线
     type: {
       type: String,
@@ -34,11 +27,6 @@ export default {
       validator(value) {
         return oneOf(value, ["line", "bar"]);
       }
-    },
-    // 设置水平或垂直图表
-    changeDir: {
-      type: Boolean,
-      default: false
     },
     //颜色集合
     colors: {
@@ -61,7 +49,9 @@ export default {
         return ["9月", "10月", "11月", "12月", "1月", "2月", "3月", "4月"];
       }
     },
-    timelineData: {
+    // 时间轴的数据
+    timeData: Array,
+    series: {
       type: Array,
       default() {
         return [
@@ -93,7 +83,7 @@ export default {
       type: Object,
       default: function() {
         return {
-          show: "true",
+          show: true,
           top: "80%",
           left: "10%",
           right: "5%"
@@ -157,16 +147,16 @@ export default {
             show: true
           },
           axisLabel: {
-            show: true,
-            textStyle: {
-              color: "#9D9EA0",
-              fontSize: 12
-            }
+            show: true
+          },
+          textStyle: {
+            color: "#9D9EA0",
+            fontSize: 12
           },
           splitLine: {
             show: true
           },
-          data: this.legend
+          data: this.xAxis
         };
       }
     },
@@ -183,11 +173,11 @@ export default {
             show: true
           },
           axisLabel: {
-            show: true,
-            textStyle: {
-              color: "#9D9EA0",
-              fontSize: 12
-            }
+            show: true
+          },
+          textStyle: {
+            color: "#9D9EA0",
+            fontSize: 12
           },
           splitLine: {
             show: false
@@ -218,16 +208,21 @@ export default {
   mounted() {
     this.chart();
   },
+  updated() {
+    this.$nextTick(() => {
+      this.chart();
+    });
+  },
   watch: {
-    timelineData(curVal, oldVal) {
+    series(curVal, oldVal) {
       this.chart();
     }
   },
   methods: {
     chart() {
       const options = [];
-      const cityIndex = this.legend.indexOf(this.keyWord);
-      this.timelineData.forEach((item, index) => {
+      const cityIndex = this.xAxis.indexOf(this.keyWord);
+      this.series.forEach((item, index) => {
         if (this.type == "bar") {
           item[cityIndex] = {
             value: item[cityIndex],
@@ -270,7 +265,7 @@ export default {
             },
             autoPlay: true,
             playInterval: this.timer,
-            data: this.xAxis,
+            data: this.timeData,
             symbol: "circle",
             symbolSize: 13,
             lineStyle: {
@@ -302,28 +297,8 @@ export default {
         },
         options: options
       };
-
-      // if (this.changeDir) {
-      //   option.baseOption.xAxis = {
-      //     type: "value",
-      //     axisLabel: { show: false },
-      //     axisLine: { show: false },
-      //     axisTick: { show: false },
-      //     splitLine: { show: false },
-      //     data: []
-      //   };
-      //   option.baseOption.yAxis = {
-      //     type: "category",
-      //     axisLabel: { show: false },
-      //     axisLine: { show: false },
-      //     axisTick: { show: false },
-      //     splitLine: { show: false },
-      //     data: this.legend
-      //   };
-      // }
       const chart = eCharts.init(this.$refs.timelineChart);
       chart.setOption(option);
-      console.log(JSON.stringify(option));
     }
   }
 };

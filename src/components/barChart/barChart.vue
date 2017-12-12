@@ -28,7 +28,10 @@ export default {
       }
     },
     // 图例文字颜色
-    legCrl: String,
+    legCrl: {
+      type:String,
+      default:"#000"
+    },
     // 图例位置
     legPos: {
       type: String,
@@ -160,11 +163,18 @@ export default {
         return [];
       }
     },
-    // 平均线颜色
+    // 折线平均线颜色
     avLineCrl: {
       type: Array,
       default() {
         return ["#fe6b40", "#edea10"];
+      }
+    },
+    // 柱子平均线颜色
+    avBarCrl: {
+      type: Array,
+      default() {
+        return ["#edea10","#fe6b40"];
       }
     },
     // 如果柱状图需要显示所占百分比
@@ -173,19 +183,39 @@ export default {
       default: false
     },
     // X轴Y轴刻度线颜色及文字背景色
-    axisLineClr: String,
+    axisLineClr:{
+      type:String,
+      default:"#000"
+    },
     // X轴Y轴的文字颜色
-    axisLalClr: String,
+    axisLalClr:{
+      type:String,
+      default:"#000"
+    },
     // 背景分割线颜色
-    splitLineClr: {
-      type: String,
-      default: "lightgrey"
+    splitLineClr:{
+      type:String,
+      default:"#ddd"
     },
     // 更改图表展示类型
     changeDir: {
       type: Boolean,
       default:false
-    }
+    },
+    // 设置图表label的是否显示，位置，颜色，内容
+    tLabel: {
+      type: Object,
+      default: function() {
+        return {
+          show: true,
+          position: "top",
+          formatter: "{c}" + this.lUnit,
+          textStyle: {
+            color: "#000"
+          }
+        };
+      }
+    },
   },
   data() {
     return {
@@ -193,17 +223,17 @@ export default {
       axisLabel: {
         interval: 0,
         textStyle: {
-          color: this.axisLalClr ? this.axisLalClr : "#ffffff"
+          color: this.axisLalClr
         }
       },
       axisLine: {
         lineStyle: {
-          color: this.axisLineClr ? this.axisLineClr : "rgba(101,226,244,.5)"
+          color: this.axisLineClr
         }
       },
       splitLine: {
         lineStyle: {
-          color: this.splitLineClr ? this.splitLineClr : "rgba(255,255,255,0.6)"
+          color: this.splitLineClr
         }
       },
       chart: null
@@ -265,15 +295,7 @@ export default {
           type: item.type,
           data: item.data,
           label: {
-            normal: {
-              show: this.percent ? true : false,
-              position: "top",
-              formatter: params => {
-                return this.percent
-                  ? parseInt(params.value / sum * 100) + "%"
-                  : "{c}";
-              }
-            }
+            normal: this.tLabel
           },
           barWidth: this.barWidth,
           symbol: "circle",
@@ -292,7 +314,25 @@ export default {
         };
         if (item.type === "line") {
           json.yAxisIndex = 1;
+          json.lineStyle={
+            normal:{
+              color:this.colorList[index]
+            }
+          };
           isMulti = true;
+        }
+        if (this.percent){
+          json.label = {
+            normal:{
+              show:true,
+              position: "top",
+              formatter: params => {
+                return this.percent
+                  ? parseInt(params.value / sum * 100) + "%"
+                  : "{c}";
+              }
+            }
+          }
         }
         if (this.stack) {
           json.stack = "总量";
@@ -306,6 +346,7 @@ export default {
           jsonBgc.label = { normal: { show: false } };
           jsonBgc.barWidth = this.barWidth;
           jsonBgc.silent = true;
+          jsonBgc.tooltip = {show:false};
           //颜色需要有透明度
           jsonBgc.itemStyle = { normal: { color: "rgba(102, 102, 102,.2)" } };
           //计算柱状图背景高度
@@ -328,10 +369,17 @@ export default {
           let avData = [];
           let color = "";
           if (item.type === "bar") {
-            this.avDataBar.forEach(item => {
-              avData.push({ yAxis: item });
+            this.avDataBar.forEach((item, index) => {
+              avData.push({
+                yAxis: item,
+                lineStyle: {
+                  normal: {
+                    color: this.avBarCrl[index]
+                  }
+                }
+              });
             });
-            color = this.avLineCrl[0];
+            color = this.avBarCrl[index];
           } else {
             this.avDataLine.forEach((item, index) => {
               avData.push({
@@ -369,7 +417,7 @@ export default {
         legend: {
           data: this.legend,
           textStyle: {
-            color: this.legCrl ? this.legCrl : "#ffffff"
+            color: this.legCrl
           },
           itemWidth: 12,
           itemHeight: 12
@@ -498,14 +546,14 @@ export default {
       if (this.yName) {
         option.yAxis[0].name = this.yName;
         option.yAxis[0].nameTextStyle = {
-          color: this.axisLalClr ? this.axisLalClr : "#fff"
+          color: this.axisLalClr
         };
       }
       // 设置X轴名字
       if (this.xName) {
         option.xAxis[0].name = this.xName;
         option.xAxis[0].nameTextStyle = {
-          color: this.axisLalClr ? this.axisLalClr : "#fff"
+          color: this.axisLalClr
         };
         option.xAxis[0].nameLocation = "start";
         option.xAxis[0].nameGap = "20";
@@ -515,6 +563,7 @@ export default {
         option.xAxis.push({
           type: "category",
           data: this.xAxis,
+          tooltip:{show:false},
           axisLine: { show: false },
           axisTick: { show: false },
           axisLabel: { show: false },

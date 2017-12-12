@@ -1,7 +1,7 @@
 <template>
   <section :class="classes" :style="styles">
-    <div :class="pieClasses" ref="pieChart" :style="{width:chartBox}"></div>
-    <ul :class="[prefixCls + '-legend']" ref="text" :style="{width:itemBox}">
+    <div :class="pieClasses" ref="pieChart" :style="{width:chartBox[0],height:chartBox[1]}"></div>
+    <ul :class="[prefixCls + '-legend']" ref="text" :style="{width:itemBox[0],height:itemBox[1]}">
       <li v-for="(item,index) in itemData" :class="[prefixCls + '-legend-li']" :style="liStyle">
         <div :class="[prefixCls + '-legend-icon']" :style="{backgroundColor:colors[index],marginTop:marginTop}"></div>
         <div :class="[prefixCls + '-legend-name']">
@@ -54,6 +54,11 @@ export default {
     },
     // 饼形图的宽度
     chartWidth: {
+      type: String,
+      default: "45"
+    },
+     // 饼形图的高度
+    chartHeight: {
       type: String,
       default: "45"
     },
@@ -133,10 +138,16 @@ export default {
   },
   computed: {
     chartBox() {
-      return this.type === "v" ? `${this.chartWidth}%` : "100%";
+      return [
+        this.type === "v" ? `${this.chartWidth}%` : "100%",
+        this.type === "v" ?  "100%" : `${this.chartHeight}%`,
+      ]
     },
     itemBox() {
-      return this.type === "v" ? `${100 - parseInt(this.chartWidth)}%` : "100%";
+      return [
+        this.type === "v" ? `${100 - parseInt(this.chartWidth)}%` : "100%",
+        this.type === "v" ? "100%" : `${100 - parseInt(this.chartHeight)}%` ,
+      ]
     },
     classes() {
       return [
