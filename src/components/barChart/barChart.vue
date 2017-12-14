@@ -216,6 +216,15 @@ export default {
         };
       }
     },
+    // 是否需要隔行变色
+    isMix:{
+      type:Boolean,
+      default:false
+    },
+    // 柱状之间的距离
+    barGap:{
+      Type:Number
+    }
   },
   data() {
     return {
@@ -299,12 +308,17 @@ export default {
           },
           barWidth: this.barWidth,
           symbol: "circle",
+          barGap:this.barGap,
           symbolSize: 8,
           itemStyle: {
             normal: {
               color: params => {
-                if (this.colorList[index] instanceof Array) {
-                  return this.colorList[index][params.dataIndex];
+                if (this.isMix) {
+                  if( params.dataIndex%2===0){
+                    return this.colorList[0]
+                  }else{
+                    return this.colorList[1]
+                  }
                 } else {
                   return this.colorList[index];
                 }

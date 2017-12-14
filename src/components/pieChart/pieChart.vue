@@ -124,6 +124,16 @@ export default {
       default: () => {
         return [40, 30, 60];
       }
+    },
+    // 是否需要另外一半数据是透明
+    percent:{
+      type: Boolean,
+      default: false
+    },
+    // 是否显示overlayPie的提示框
+    tShow:{
+      type:Boolean,
+      default:true
     }
   },
   data() {
@@ -133,7 +143,7 @@ export default {
         height: "",
         lineHeight: ""
       },
-      marginTop: ""
+      marginTop: "",
     };
   },
   computed: {
@@ -261,9 +271,13 @@ export default {
       };
       if (this.kind == "overlayPie") {
         let series = [];
+        this.itemData.forEach((item,index)=>{
+            isNaN(item.value) ? (sum = "-") : (sum += parseInt(item.value));
+        })
         eCharts.util.each(this.itemData, (item, index) => {
           series.push({
             type: "pie",
+            name: item.name,
             clockWise: false,
             startAngle: this.startAngle[index],
             radius: this.radius[index],
@@ -283,8 +297,11 @@ export default {
                 name: "visible"
               },
               {
-                value: this.itemData[0].value - item.value,
+                value: this.percent? sum - parseInt(item.value): this.itemData[0].value - item.value,
                 name: "invisible",
+                tooltip:{
+                  show:false
+                },
                 itemStyle: {
                   normal: {
                     color: "rgba(0,0,0,0)",
@@ -299,9 +316,13 @@ export default {
             ]
           });
         });
+        console.log(series)
         option.series = series;
         option.tooltip = {
-          show: false
+          show: this.tShow,
+          formatter: this.unit
+            ? "{a} <br/> {c}" + this.unit + "（{d0}%）"
+            : "{a} <br/> {c} ({d}%)"
         };
       }
       const chart = eCharts.init(this.$refs.pieChart);
