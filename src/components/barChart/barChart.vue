@@ -29,8 +29,8 @@ export default {
     },
     // 图例文字颜色
     legCrl: {
-      type:String,
-      default:"#000"
+      type: String,
+      default: "#000"
     },
     // 图例位置
     legPos: {
@@ -176,7 +176,7 @@ export default {
     avBarCrl: {
       type: Array,
       default() {
-        return ["#edea10","#fe6b40"];
+        return ["#edea10", "#fe6b40"];
       }
     },
     // 如果柱状图需要显示所占百分比
@@ -185,27 +185,27 @@ export default {
       default: false
     },
     // X轴Y轴刻度线颜色及文字背景色
-    axisLineClr:{
-      type:String,
-      default:"#000"
+    axisLineClr: {
+      type: String,
+      default: "#000"
     },
     // X轴Y轴的文字颜色
-    axisLalClr:{
-      type:String,
-      default:"#000"
+    axisLalClr: {
+      type: String,
+      default: "#000"
     },
     // 背景分割线颜色
-    splitLineClr:{
-      type:String,
-      default:"#ddd"
+    splitLineClr: {
+      type: String,
+      default: "#ddd"
     },
     // 更改图表展示类型
     changeDir: {
       type: Boolean,
-      default:false
+      default: false
     },
     // 数据单位
-    lUnit:String,
+    lUnit: String,
     // 设置图表label的是否显示，位置，颜色，内容
     tLabel: {
       type: Object,
@@ -226,13 +226,13 @@ export default {
       default: true
     },
     // 是否需要隔行变色
-    isMix:{
-      type:Boolean,
-      default:false
+    isMix: {
+      type: Boolean,
+      default: false
     },
     // 柱状之间的距离
-    barGap:{
-      type:Number,
+    barGap: {
+      type: Number,
       default: 22
     },
     // 如果是折柱混合，且柱子的颜色是隔行变色，则需单独设置line的颜色
@@ -243,7 +243,7 @@ export default {
       }
     },
     // 平均线数字的位置
-    avPosition:{
+    avPosition: {
       type: String,
       default: "middle",
       validator(value) {
@@ -334,15 +334,15 @@ export default {
           },
           barWidth: this.barWidth,
           symbol: "circle",
-          barGap:this.barGap,
+          barGap: this.barGap,
           symbolSize: 8,
           itemStyle: {
             normal: {
               color: params => {
                 if (this.isMix) {
-                  if( params.dataIndex%2===0){
+                  if (params.dataIndex % 2 === 0) {
                     return this.colorList[0];
-                  }else{
+                  } else {
                     return this.colorList[1];
                   }
                 } else {
@@ -359,17 +359,17 @@ export default {
               color: this.isMix ? this.lineColors[o] : this.colorList[index]
             }
           };
-          json.itemStyle={
+          json.itemStyle = {
             normal: {
               color: this.isMix ? this.lineColors[o++] : this.colorList[index]
             }
           };
           isMulti = true;
         }
-        if (this.percent){
+        if (this.percent) {
           json.label = {
-            normal:{
-              show:true,
+            normal: {
+              show: true,
               position: "top",
               formatter: params => {
                 return this.percent
@@ -377,7 +377,7 @@ export default {
                   : "{c}";
               }
             }
-          }
+          };
         }
         if (this.stack) {
           json.stack = "总量";
@@ -391,7 +391,7 @@ export default {
           jsonBgc.label = { normal: { show: false } };
           jsonBgc.barWidth = this.barWidth;
           jsonBgc.silent = true;
-          jsonBgc.tooltip = {show:false};
+          jsonBgc.tooltip = { show: false };
           //颜色需要有透明度
           jsonBgc.itemStyle = { normal: { color: "rgba(102, 102, 102,.2)" } };
           //计算柱状图背景高度
@@ -460,7 +460,7 @@ export default {
 
       const option = {
         legend: {
-	  show: this.legShow,
+          show: this.legShow,
           data: this.legend,
           textStyle: {
             color: this.legCrl
@@ -475,23 +475,7 @@ export default {
             crossStyle: {
               color: "#999"
             }
-	  },
-          formatter: param => {
-            return (
-              param[0].name +
-              ":" +
-              "<br>" +
-              param[0].seriesName +
-              "  : " +
-              param[0].value +
-              this.yName +
-              "<br>" +
-              param[1].seriesName +
-              " : " +
-              param[1].value +
-              this.lineName
-            );
-          }
+          },
         },
         animationEasing: "sinusoidalInOut",
         animationDuration: 1500,
@@ -501,7 +485,7 @@ export default {
             type: this.changeDir ? "value" : "category",
             axisLabel: this.axisLabel,
             axisLine: this.axisLine,
-            data: this.changeDir?"":this.xAxis,
+            data: this.changeDir ? "" : this.xAxis,
             splitLine: this.splitLine
           }
         ],
@@ -516,7 +500,7 @@ export default {
             },
             splitLine: this.splitLine,
             splitNumber: 3,
-            data: this.changeDir?this.xAxis:"",
+            data: this.changeDir ? this.xAxis : ""
           }
         ],
         series: series
@@ -583,7 +567,7 @@ export default {
         option.yAxis.push({
           type: "value",
           splitNumber: 3,
-	  name: this.lineName,
+          name: this.lineName,
           nameTextStyle: {
             color: this.axisLalClr
           },
@@ -625,7 +609,7 @@ export default {
         option.xAxis.push({
           type: "category",
           data: this.xAxis,
-          tooltip:{show:false},
+          tooltip: { show: false },
           axisLine: { show: false },
           axisTick: { show: false },
           axisLabel: { show: false },
