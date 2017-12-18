@@ -58,6 +58,8 @@ export default {
     },
     // Y轴单位
     yName: String,
+    // 折线Y轴的单位
+    lineName: String,
     // X轴单位
     xName: String,
     // 是否增加右侧Y轴
@@ -202,6 +204,8 @@ export default {
       type: Boolean,
       default:false
     },
+    // 数据单位
+    lUnit:String,
     // 设置图表label的是否显示，位置，颜色，内容
     tLabel: {
       type: Object,
@@ -216,6 +220,11 @@ export default {
         };
       }
     },
+    //是否显示图例
+    legShow: {
+      type: Boolean,
+      default: true
+    },
     // 是否需要隔行变色
     isMix:{
       type:Boolean,
@@ -223,7 +232,23 @@ export default {
     },
     // 柱状之间的距离
     barGap:{
-      Type:Number
+      type:Number,
+      default: 22
+    },
+    // 如果是折柱混合，且柱子的颜色是隔行变色，则需单独设置line的颜色
+    lineColors: {
+      type: Array,
+      default() {
+        return ["#F6D37E"];
+      }
+    },
+    // 平均线数字的位置
+    avPosition:{
+      type: String,
+      default: "middle",
+      validator(value) {
+        return oneOf(value, ["start", "middle", "end"]);
+      }
     }
   },
   data() {
@@ -294,6 +319,7 @@ export default {
     drawChart() {
       let series = [];
       let isMulti = false;
+      let o = 0;
       this.series.forEach((item, index) => {
         let sum = 0;
         item.data.forEach(i => {
@@ -315,9 +341,9 @@ export default {
               color: params => {
                 if (this.isMix) {
                   if( params.dataIndex%2===0){
-                    return this.colorList[0]
+                    return this.colorList[0];
                   }else{
-                    return this.colorList[1]
+                    return this.colorList[1];
                   }
                 } else {
                   return this.colorList[index];
@@ -328,9 +354,14 @@ export default {
         };
         if (item.type === "line") {
           json.yAxisIndex = 1;
-          json.lineStyle={
-            normal:{
-              color:this.colorList[index]
+          json.lineStyle = {
+            normal: {
+              color: this.isMix ? this.lineColors[o] : this.colorList[index]
+            }
+          };
+          json.itemStyle={
+            normal: {
+              color: this.isMix ? this.lineColors[o++] : this.colorList[index]
             }
           };
           isMulti = true;
@@ -419,7 +450,7 @@ export default {
             },
             label: {
               normal: {
-                position: "middle"
+                position: this.avPosition
               }
             }
           };
@@ -429,6 +460,7 @@ export default {
 
       const option = {
         legend: {
+	  show: this.legShow,
           data: this.legend,
           textStyle: {
             color: this.legCrl
@@ -443,6 +475,22 @@ export default {
             crossStyle: {
               color: "#999"
             }
+	  },
+          formatter: param => {
+            return (
+              param[0].name +
+              ":" +
+              "<br>" +
+              param[0].seriesName +
+              "  : " +
+              param[0].value +
+              this.yName +
+              "<br>" +
+              param[1].seriesName +
+              " : " +
+              param[1].value +
+              this.lineName
+            );
           }
         },
         animationEasing: "sinusoidalInOut",
@@ -514,12 +562,9 @@ export default {
           axisTick: { show: false },
           name: this.yName,
           nameTextStyle: {
-            color: "#ffffff"
+            color: this.axisLalClr
           },
           splitLine: { show: false }
-        };
-        option.tooltip = {
-          show: false
         };
       }
       // 是否需要右侧Y轴刻度
@@ -538,7 +583,10 @@ export default {
         option.yAxis.push({
           type: "value",
           splitNumber: 3,
-          //            min: 0,
+	  name: this.lineName,
+          nameTextStyle: {
+            color: this.axisLalClr
+          },
           axisLine: this.axisLine,
           splitLine: this.splitLine,
           axisLabel: this.axisLabel,

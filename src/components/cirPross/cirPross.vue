@@ -36,7 +36,8 @@ export default {
     font:{
       type:String,
       default:"25px AgencyFBBold"
-    }
+    },
+    en:Number
   },
   data() {
     return {
@@ -55,7 +56,7 @@ export default {
     }
   },
   watch: {
-    percent(curVal, oldVal) {
+    en(curVal, oldVal) {
       if (isNaN(curVal)) {
         this.whiteCircle();
         this.textPercent("-");
@@ -75,6 +76,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.en)
     const canvas = this.$refs.cirPross;
     const marginTop = canvas.clientHeight / 2 - this.radius;
     const marginLeft = canvas.clientWidth / 2 - this.radius;

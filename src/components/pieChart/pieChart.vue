@@ -5,11 +5,12 @@
       <li v-for="(item,index) in itemData" :class="[prefixCls + '-legend-li']" :style="liStyle">
         <div :class="[prefixCls + '-legend-icon']" :style="{backgroundColor:colors[index],marginTop:marginTop}"></div>
         <div :class="[prefixCls + '-legend-name']">
-          <div v-html="item.name"></div>
+          <div v-html="item.name" :style="{color:tColor}"></div>
         </div>
         <div :class="[prefixCls + '-legend-num']">
-          <span :class="[prefixCls + '-legend-num-value']">{{item.value}}</span>
-          <span style="font-size:14px;">{{unit}}</span>
+          <span :class="[prefixCls + '-legend-num-value']" :style="{color:tColor}">{{item.value}}</span>
+          <span style="{font-size:14px,color:tColor}">{{unit}}</span>
+          <span v-if="hasRatio">({{ratio[index]}})</span>
         </div>
       </li>
     </ul>
@@ -134,6 +135,16 @@ export default {
     tShow:{
       type:Boolean,
       default:true
+    },
+    // 图例上面是否显示百分比
+    hasRatio:{
+      type:Boolean,
+      default:false
+    },
+    
+     tColor:{
+      type:String,
+      default:"#000"
     }
   },
   data() {
@@ -144,6 +155,7 @@ export default {
         lineHeight: ""
       },
       marginTop: "",
+      ratio:[],
     };
   },
   computed: {
@@ -204,6 +216,12 @@ export default {
   methods: {
     chart() {
       let sum = 0;
+      this.itemData.forEach((item,index)=>{
+        isNaN(item.value) ? (sum = "-") : (sum += parseInt(item.value));
+      })
+      this.itemData.forEach((item,index)=>{
+        this.ratio.push(((parseInt(item.value) / sum)* 100).toFixed(2) + "%")
+      })
       if (this.kind === "normalPie") {
         eCharts.util.each(this.itemData, (item, index) => {
           item.itemStyle = {
@@ -214,7 +232,6 @@ export default {
           if (index == 0 && this.selected) {
             item.selected = true;
           }
-          isNaN(item.value) ? (sum = "-") : (sum += parseInt(item.value));
         });
       }
       const option = {
@@ -271,9 +288,6 @@ export default {
       };
       if (this.kind == "overlayPie") {
         let series = [];
-        this.itemData.forEach((item,index)=>{
-            isNaN(item.value) ? (sum = "-") : (sum += parseInt(item.value));
-        })
         eCharts.util.each(this.itemData, (item, index) => {
           series.push({
             type: "pie",
@@ -316,7 +330,6 @@ export default {
             ]
           });
         });
-        console.log(series)
         option.series = series;
         option.tooltip = {
           show: this.tShow,

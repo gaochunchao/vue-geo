@@ -1,7 +1,7 @@
 <template>
     <div>
         <span>表格</span>
-        <table-form color="#195fb4" :columns="qyTable.columns" :dataItem="qyTable.dataItem" keyWord="汉川" :isScroll="true" ></table-form>
+        <table-form color="#195fb4" :columns="qyTable.columns" :dataItem="qyTable.dataItem" keyWord="孝南区" :isScroll="true" ></table-form>
     </div>
 </template>
 <script>
