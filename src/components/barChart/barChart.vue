@@ -260,7 +260,7 @@ export default {
     // Y轴背景色
     splitBgc:{
       type:Array,
-      default:[]
+      default:["rgba(0,0,0,0)"]
     }
   },
   data() {
@@ -513,7 +513,7 @@ export default {
               textStyle: {
                 color: this.axisLalClr
               },
-              show: this.changeDir ? true : false,
+              show:true,
             },
             axisLine: {
               lineStyle: {
@@ -529,7 +529,7 @@ export default {
             },
             splitLine: this.splitLine,
             splitArea:{
-              show: this.splitBgc ? true : false,
+              show: true,
               areaStyle:{
                 color: this.splitBgc
               }

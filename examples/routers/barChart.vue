@@ -2,7 +2,7 @@
 <template>
   <div>
     <span>柱状图</span>
-    <bar-chart :legend="lrZe.legend" :xAxis="lrZe.xAxis" :colorList="lrZe.colorList" :series="lrZe.series" :avDataBar="lrZe.avdata" :avLineCrl="lrZe.avLineCrl" lUnit="亿元" :changeDir="true" :splitLineClr="'rgba(0,0,0,0)'" :yLabelBgc="'#fe6b40'" :yLabelW="60" :yLabelH="20" :yAxisLabel="lrZe.axisLabel"></bar-chart>
+    <bar-chart :legend="lrZe.legend" :xAxis="lrZe.xAxis" :colorList="lrZe.colorList" :series="lrZe.series" :avDataBar="lrZe.avdata" :avLineCrl="lrZe.avLineCrl" lUnit="亿元" :splitLineClr="'rgba(0,0,0,0)'" :yLabelBgc="'#fe6b40'" :yLabelW="60" :yLabelH="20""></bar-chart>
   </div>
 </template>
 <script>
