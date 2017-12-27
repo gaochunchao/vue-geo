@@ -1,6 +1,6 @@
 <template>
   <div :class="classes" :style="styles">
-    <div :class="[prefixCls + '-name']" :style="naSty">{{name}}</div>
+    <div :class="[prefixCls + '-name']" :style="naSty" v-html="name"></div>
     <div :class="[prefixCls + '-num']" :style="nuSty" v-if="isUnit">{{num}}
       <span :class="[prefixCls + '-unit']" :style="unitSty">{{unit}}</span>
     </div>

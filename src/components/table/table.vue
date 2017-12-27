@@ -15,7 +15,6 @@
 </template>
 <script>
 import { oneOf } from "../../utils/assist";
-import animate from "animate.css";
 
 const prefixCls = "geo-table";
 

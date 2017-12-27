@@ -498,7 +498,7 @@ export default {
               show: this.changeDir ? false : true
             },
             axisTick: {
-              show: this.changeDir ? false : true
+              show: false
             },
             data: this.changeDir ? "" : this.xAxis,
             splitLine: this.splitLine
@@ -521,7 +521,7 @@ export default {
               }
             },
             axisTick: {
-              show: this.changeDir ? false : true
+              show: false
             },
             name: this.yName,
             nameTextStyle: {
