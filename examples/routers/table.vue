@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="tableTest">
         <span>表格</span>
-        <table-form color="#195fb4" :columns="qyTable.columns" :dataItem="qyTable.dataItem" keyWord="孝南区" :isScroll="true" ></table-form>
+        <table-form color="#195fb4" :columns="qyTable.columns" :dataItem="qyTable.dataItem" :lineColors="['#05253c','#1c3f5d']" :headerColor="'#05253c'"></table-form>
     </div>
 </template>
 <script>
@@ -87,3 +87,16 @@ export default {
   }
 };
 </script>
+<style type="text/less" lang="less">
+.tableTest>.geo-table>.geo-table-body{
+  margin-top:0 !important;
+}
+.tableTest>.geo-table>.geo-table-header{
+  border:1px solid #355f83;
+  border-bottom:2px solid #527ca8;
+}
+.tableTest>.geo-table>.geo-table-body{
+  border:1px solid #355f83;
+  border-top: none;
+}
+</style>

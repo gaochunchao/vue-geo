@@ -1,20 +1,17 @@
 @table: ~"@{css-prefix}table";
 .@{table} {
     &-header {
+        box-sizing: content-box;
         float: left;
         width: 100%;
-        li {
+        .@{table}-th{
             float: left;
             color: #fff;
             text-align: center;
             font-size: 14px;
-            height: 100%;
-            border: 1px solid rgba(0,0,0,0);
-            border-right: none;
+            font-weight: normal;
+            height: 24px;
             width: 100%;
-            &:last-child {
-              border-right: 1px solid rgba(0,0,0,0);
-            }
         }
     }
     &-body::-webkit-scrollbar{width:0px}
@@ -22,25 +19,22 @@
         float: left;
         width: 100%;
         overflow:auto;
+        box-sizing: content-box;
         /*隐藏滚动条，当IE下溢出，仍然可以滚动*/
         -ms-overflow-style:none;
         /*火狐下隐藏滚动条*/
         overflow:-moz-scrollbars-auto;
         /*overflow: hidden;*/
-        li {
+        tr{
             float: left;
             color: #fff;
             text-align: center;
             width: 100%;
+            font-size: 14px;
             height: 28px;
             line-height: 28px;
-            border: 1px solid rgba(0,0,0,0);
-            border-bottom: none;
             width: 100%;
-            &:last-child {
-              border-bottom: 1px solid #22afc3;
-            }
-            .@{table}-td {
+            td{
                 float: left;
                 height: 100%;
                 overflow: hidden;

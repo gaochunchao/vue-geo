@@ -207,6 +207,11 @@ export default {
           ["#6bb592", "#6bb592"]
         ];
       }
+    },
+    // 折点是空心还是实心
+    symbol:{
+      Type:String,
+      default:"emptyCircle"
     }
   },
   data() {
@@ -266,7 +271,7 @@ export default {
             name: this.legend[index],
             type: "line",
             data: item,
-            symbol: "circle",
+            symbol: this.symbol,
             symbolSize: 10,
             smooth: true,
             showSymbol: this.isSymbol,
@@ -384,6 +389,7 @@ export default {
                 name: name1,
                 type: "line",
                 smooth: true,
+                symbol:this.symbol,
                 symbolSize: 7,
                 data: data,
                 lineStyle: {

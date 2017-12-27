@@ -1,19 +1,19 @@
 <template>
-  <div :class="classes" :style="styles">
+  <table :class="classes" :style="[styles,{borderCollapse:'collapse'}]">
     <!--表头-->
-    <ul :class="[prefixCls + '-header']" :style="{backgroundColor:headerColor,height:thHeight+'px'}" v-if="isHeader">
-      <li :class="[prefixCls + '-th']" v-for="item in columns" :style="[thStyle(item),borSty(),{color:lColor}]" v-html="item.name">
-      </li>
-    </ul>
+    <thead :class="[prefixCls + '-header']" :style="{backgroundColor:headerColor,height:thHeight+'px'}" v-if="isHeader">
+      <th :class="[prefixCls + '-th']" v-for="item in columns" :style="[thStyle(item),{color:hColor}]" v-html="item.name" ref="thead">
+      </th>
+    </thead>
     <transition :duration="1000" enterActiveClass="animated flipInX" appear>
-      <ul :class="[prefixCls + '-body']" ref="tbody" :style="bodyHeight" v-if="show">
-        <li v-for="(item,index) in dataItem" :key="index" :style="[trHeight,trBack(index),{color:lColor},borSty(),isHighLight(item)]">
-          <div :class="[prefixCls + '-td']" :style="{width:liWidth(index),lineHeight:cellHeight(td)}" v-for="(td,index) in item" v-html="td">
-          </div>
-        </li>
-      </ul>
+      <tbody :class="[prefixCls + '-body']" ref="tbody" :style="bodyHeight" v-if="show">
+        <tr v-for="(item,index) in dataItem" :key="index" :style="[trHeight,trBack(index),{color:bColor},isHighLight(item)]">
+          <td :class="[prefixCls + '-td']" :style="{width:liWidth(index),lineHeight:cellHeight(td)}" v-for="(td,index) in item" v-html="td">
+          </td>
+        </tr>
+      </tbody>
     </transition>
-  </div>
+  </table>
 </template>
 <script>
 import { oneOf } from "../../utils/assist";
@@ -36,49 +36,49 @@ export default {
     // 表头背景色
     headerColor: {
       type: String,
-      default: "#195fb4"
+      default: ""
     },
-    // 边框颜色
-    borCor: {
+    // tbody的背景颜色
+    lineColors: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+    // 设置表头的文字颜色
+    hColor: {
       type: String,
-      default: "#000"
+      default: "#fff"
     },
-    // 是否显示边框
-    showBor:{
-      type:Boolean,
-      default:false
+    // 设置表格的文字颜色
+    bColor: {
+      type: String,
+      default: "#fff"
     },
-    // 是否要翻转的动画效果
-    animate: {
+    // 是否显示表头
+    isHeader: {
       type: Boolean,
-      default: false
+      default: true
     },
     // 是否显示tbody，控制动画翻转
     show: {
       type: Boolean,
       default: true
     },
-    // tbody的背景颜色
-    lineColors: {
-      type: Array,
-      default() {
-        return ["#0e2e5d", "#0c1b46"]
-      }
+    // 是否要翻转的动画效果
+    animate: {
+      type: Boolean,
+      default: false
     },
     // 数据太多需要上下滚动来查看数据，则设置成true
-    isScroll:{
-      type:Boolean,
-      default:false
+    isScroll: {
+      type: Boolean,
+      default: false
     },
     // 设置每次展示的数据条数
-    showNum:{
-      type:[Number, String],
-      default:6
-    },
-    // 是否显示表头
-    isHeader: {
-      type: Boolean,
-      default: true
+    showNum: {
+      type: [Number, String],
+      default: 6
     },
     //头部高度
     thHeight: {
@@ -90,7 +90,7 @@ export default {
     // tbody数据
     dataItem: Array,
     // 高亮字体的颜色
-    hColor: {
+    hlColor: {
       type: String,
       default: "#fe6b40"
     },
@@ -98,11 +98,6 @@ export default {
     keyWord: {
       type: String,
       default: "孝感"
-    },
-    // 设置表格的文字颜色
-    lColor: {
-      type: String,
-      default: "#fff"
     },
   },
   data() {
@@ -135,10 +130,12 @@ export default {
           this.bodyHeight.height = "100%";
           this.bodyHeight.marginTop = "0";
         }
-        if(this.isScroll){
-          this.liHeight = Math.floor(this.$refs.tbody.clientHeight / this.showNum);
-        }else{
-          this.liHeight = Math.floor(this.$refs.tbody.clientHeight / this.dataItem.length);
+        if (this.isScroll) {
+          this.liHeight = Math.floor(
+            this.$refs.tbody.clientHeight / this.showNum
+          );
+        } else {
+          this.liHeight = this.$refs.tbody.clientHeight / this.dataItem.length;
         }
         this.trHeight.height = `${this.liHeight}px`;
         this.trHeight.lineHeight = `${this.liHeight}px`;
@@ -153,10 +150,12 @@ export default {
         } else {
           this.bodyHeight.height = "100%";
         }
-        if(this.isScroll){
-          this.liHeight = Math.floor(this.$refs.tbody.clientHeight / this.showNum);
-        }else{
-          this.liHeight = Math.floor(this.$refs.tbody.clientHeight / this.dataItem.length);
+        if (this.isScroll) {
+          this.liHeight = Math.floor(
+            this.$refs.tbody.clientHeight / this.showNum
+          );
+        } else {
+          this.liHeight = this.$refs.tbody.clientHeight / this.dataItem.length;
         }
         this.trHeight.height = `${this.liHeight}px`;
         this.trHeight.lineHeight = `${this.liHeight}px`;
@@ -189,15 +188,8 @@ export default {
     isHighLight(item) {
       if (item.name == this.keyWord) {
         return {
-          color: this.hColor
+          color: this.hlColor
         };
-      }
-    },
-    borSty(){
-      if(this.showBor){
-        return{
-          borderColor:this.borCor
-        }
       }
     }
   }

@@ -14,6 +14,7 @@ import xLabel from "./components/xLabel"
 import yLabel from "./components/yLabel"
 import xLegend from "./components/xLegend"
 import yLegend from "./components/yLegend"
+import liquidFill from "./components/liquidFill"
 
 const components = {
   barChart,
@@ -30,7 +31,8 @@ const components = {
   xLabel,
   yLabel,
   xLegend,
-  yLegend
+  yLegend,
+  liquidFill
 }
 
 const geoView = {

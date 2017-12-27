@@ -23,7 +23,7 @@ export default {
     height: {
       type: [Number, String]
     },
-    // 自定义字体样式
+    // 设置标题的类名
     fontClass: {
       type: String
     },

@@ -37,7 +37,6 @@ export default {
       type:String,
       default:"25px AgencyFBBold"
     },
-    en:Number
   },
   data() {
     return {
@@ -56,7 +55,7 @@ export default {
     }
   },
   watch: {
-    en(curVal, oldVal) {
+    percent(curVal, oldVal) {
       if (isNaN(curVal)) {
         this.whiteCircle();
         this.textPercent("-");
@@ -76,7 +75,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.en)
     const canvas = this.$refs.cirPross;
     const marginTop = canvas.clientHeight / 2 - this.radius;
     const marginLeft = canvas.clientWidth / 2 - this.radius;
@@ -149,7 +147,7 @@ export default {
       this.ctx.fillStyle = this.percentCor; //设置描边样式
       this.ctx.font = this.font; //设置字体大小和字体
       const len = isNaN(n) ? n.length : n.toFixed(0).length;
-      const x = len === 1 ? 10 : len === 2 ? 25 : 25;
+      const x = len === 1 ? 10 : len === 2 ? 20 : 20;
       //绘制字体，并且指定位置
       this.ctx.fillText(
         (isNaN(n) ? n : n.toFixed(0)) + "%",

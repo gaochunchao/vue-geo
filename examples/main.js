@@ -21,6 +21,7 @@ import xLabel from './routers/xLabel.vue'
 import yLabel from './routers/yLabel.vue'
 import xLegend from './routers/xLegend.vue'
 import yLegend from './routers/yLegend.vue'
+import liquidFill from './routers/liquidFill.vue'
 
 
 Vue.use(VueRouter);
@@ -78,11 +79,11 @@ const router = new VueRouter({
     {
       path: '/xLabel',
       component: xLabel
-    }, 
+    },
     {
       path: '/yLabel',
       component: yLabel
-    }, 
+    },
     {
       path: '/xLegend',
       component: xLegend
@@ -90,6 +91,9 @@ const router = new VueRouter({
     {
       path: '/yLegend',
       component: yLegend
+    }, {
+      path: '/liquidFill',
+      component: liquidFill
     },
   ]
 });

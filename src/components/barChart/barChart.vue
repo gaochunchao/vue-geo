@@ -232,8 +232,8 @@ export default {
     },
     // 柱状之间的距离
     barGap: {
-      type: Number,
-      default: 22
+      type: String | Number,
+      default: "30%"
     },
     // 如果是折柱混合，且柱子的颜色是隔行变色，则需单独设置line的颜色
     lineColors: {
@@ -249,22 +249,23 @@ export default {
       validator(value) {
         return oneOf(value, ["start", "middle", "end"]);
       }
+    },
+    // 自定义Y轴刻度文字的样式
+    yAxisLabel:{
+      type:Object,
+      default:function(){
+
+      }
+    },
+    // Y轴背景色
+    splitBgc:{
+      type:Array,
+      default:[]
     }
   },
   data() {
     return {
       maxBar: [],
-      axisLabel: {
-        interval: 0,
-        textStyle: {
-          color: this.axisLalClr
-        }
-      },
-      axisLine: {
-        lineStyle: {
-          color: this.axisLineClr
-        }
-      },
       splitLine: {
         lineStyle: {
           color: this.splitLineClr
@@ -475,7 +476,7 @@ export default {
             crossStyle: {
               color: "#999"
             }
-          },
+          }
         },
         animationEasing: "sinusoidalInOut",
         animationDuration: 1500,
@@ -483,8 +484,22 @@ export default {
         xAxis: [
           {
             type: this.changeDir ? "value" : "category",
-            axisLabel: this.axisLabel,
-            axisLine: this.axisLine,
+            axisLabel: {
+              interval: 0,
+              textStyle: {
+                color: this.axisLalClr
+              },
+              show: this.changeDir ? false : true,
+            },
+            axisLine: {
+              lineStyle: {
+                color: this.axisLineClr
+              },
+              show: this.changeDir ? false : true
+            },
+            axisTick: {
+              show: this.changeDir ? false : true
+            },
             data: this.changeDir ? "" : this.xAxis,
             splitLine: this.splitLine
           }
@@ -492,15 +507,34 @@ export default {
         yAxis: [
           {
             type: this.changeDir ? "category" : "value",
-            axisLabel: this.axisLabel,
-            axisLine: this.axisLine,
+            data: this.changeDir ? this.xAxis : "",
+            axisLabel: this.yAxisLabel ? this.yAxisLabel : {
+              interval: 0,
+              textStyle: {
+                color: this.axisLalClr
+              },
+              show: this.changeDir ? true : false,
+            },
+            axisLine: {
+              lineStyle: {
+                color: this.axisLineClr
+              }
+            },
+            axisTick: {
+              show: this.changeDir ? false : true
+            },
             name: this.yName,
             nameTextStyle: {
               color: "#ffffff"
             },
             splitLine: this.splitLine,
+            splitArea:{
+              show: this.splitBgc ? true : false,
+              areaStyle:{
+                color: this.splitBgc
+              }
+            },
             splitNumber: 3,
-            data: this.changeDir ? this.xAxis : ""
           }
         ],
         series: series
@@ -534,7 +568,12 @@ export default {
       if (this.isHidden) {
         option.xAxis[0] = {
           type: "category",
-          axisLabel: this.axisLabel,
+          axisLabel: {
+            interval: 0,
+            textStyle: {
+              color: this.axisLalClr
+            }
+          },
           axisLine: { show: false },
           axisTick: { show: false },
           data: this.xAxis
@@ -571,9 +610,18 @@ export default {
           nameTextStyle: {
             color: this.axisLalClr
           },
-          axisLine: this.axisLine,
+          axisLine: {
+            lineStyle: {
+              color: this.axisLineClr
+            }
+          },
           splitLine: this.splitLine,
-          axisLabel: this.axisLabel,
+          axisLabel: {
+            interval: 0,
+            textStyle: {
+              color: this.axisLalClr
+            }
+          },
           formatter: "{value}%"
         });
       }

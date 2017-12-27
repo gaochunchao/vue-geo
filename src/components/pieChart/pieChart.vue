@@ -1,9 +1,9 @@
 <template>
   <section :class="classes" :style="styles">
     <div :class="pieClasses" ref="pieChart" :style="{width:chartBox[0],height:chartBox[1]}"></div>
-    <ul :class="[prefixCls + '-legend']" ref="text" :style="{width:itemBox[0],height:itemBox[1]}">
+    <ul :class="[prefixCls + '-legend']" ref="text" :style="{width:itemBox[0],height:itemBox[1]}" v-if="showLegend">
       <li v-for="(item,index) in itemData" :class="[prefixCls + '-legend-li']" :style="liStyle">
-        <div :class="[prefixCls + '-legend-icon']" :style="{backgroundColor:colors[index],marginTop:marginTop}"></div>
+        <div :class="iconClasses" :style="{backgroundColor:colors[index],marginTop:marginTop}"></div>
         <div :class="[prefixCls + '-legend-name']">
           <div v-html="item.name" :style="{color:tColor}"></div>
         </div>
@@ -73,7 +73,10 @@ export default {
       default: [38, 50]
     },
     // 单位
-    unit: String,
+    unit:{
+      type:String,
+      default:""
+    },
     itemData: {
       type: Array,
       default: [
@@ -86,17 +89,7 @@ export default {
       type: String,
       default: ""
     },
-    // 中间文字颜色
-    titleCor: {
-      type: String,
-      default: "#000"
-    },
-    // 副标题的颜色
-    secTextCor:{
-      type: String,
-      default: "#000"
-    },
-    // 是否显示中间数字
+    // 是否显示数据总和
     qty: {
       type: Boolean,
       default: false
@@ -105,11 +98,6 @@ export default {
     secText: {
       type: String,
       default:""
-    },
-    // 中间文字大小
-    textFont: {
-      type: Number,
-      default: 16
     },
     // 饼形图展现形式
     kind: {
@@ -141,10 +129,42 @@ export default {
       type:Boolean,
       default:false
     },
-    
-     tColor:{
-      type:String,
-      default:"#000"
+    // 图例颜色图标的形状
+    shape: {
+      type: String,
+      default: "square",
+      validator(value) {
+        return oneOf(value, ["round", "square"]);
+      }
+    },
+    // 是否显示右边图例
+    showLegend:{
+      type:Boolean,
+      default:true
+    },
+    // 主标题的样式
+    textStyle:{
+      type:Object,
+      default:function(){
+        return{
+          color: '#000',
+          fontWeight: "normal",
+          fontSize: 16,
+          fontFamily: "Mircosoft Yahei"
+        }
+      }
+    },
+    // 副标题或者总和的样式
+    secTextStyle:{
+      type:Object,
+      default:function(){
+        return{
+              color: '#000',
+              fontWeight: "normal",
+              fontSize: 16,
+              fontFamily: "Mircosoft Yahei"
+        }
+      }
     }
   },
   data() {
@@ -176,6 +196,15 @@ export default {
         {
           [`${prefixCls}-v`]: this.type === "v",
           [`${prefixCls}-h`]: this.type === "h"
+        }
+      ];
+    },
+    iconClasses(){
+      return [
+        [`${prefixCls}-legend-icon`],
+        {
+          [`${prefixCls}-roundIcon`]: this.shape === "round",
+          // [`${prefixCls}-squareIcon`]: this.shape === "square"
         }
       ];
     },
@@ -222,6 +251,7 @@ export default {
       this.itemData.forEach((item,index)=>{
         this.ratio.push(((parseInt(item.value) / sum)* 100).toFixed(2) + "%")
       })
+      sum+=this.unit;
       if (this.kind === "normalPie") {
         eCharts.util.each(this.itemData, (item, index) => {
           item.itemStyle = {
@@ -239,26 +269,17 @@ export default {
           {
             text: this.text.replace("\\n", "\n"), //通过传入\n可使标题换行
             left: "center",
-            top: this.text && (this.qty || this.secText) ? "40%" : "45%",
+            top: this.text && (this.qty || this.secText) ? "35%" : "45%",
             textBaseline: "middle",
-            textStyle: {
-              color: this.titleCor,
-              fontWeight: "normal",
-              fontSize: this.textFont
-            }
+            textStyle: this.textStyle
           },
           {
             text: this.secText ? this.secText : sum,
-            show: this.text && (this.qty || this.secText) ? true : false,
+            show: this.qty || this.secText ? true : false,
             left: "center",
-            top: "55%",
+            top: this.text && (this.qty || this.secText) ? "55%" : "45%",
             textBaseline: "middle",
-            textStyle: {
-              color: this.secTextCor,
-              fontWeight: "normal",
-              fontSize: 16,
-              fontFamily: "AgencyFBBold"
-            }
+            textStyle: this.secTextStyle
           }
         ],
         tooltip: {

@@ -16,8 +16,8 @@
       <div :class="[prefixCls + '-text-percent']" v-else>
         {{percent}}%
       </div>
-      <div :class="[prefixCls + '-text-name']" v-if="showTitle">
-        <slot name="title"></slot>
+      <div :class="[prefixCls + '-text-name']">
+        <slot></slot>
       </div>
     </div>
   </section>
@@ -48,7 +48,7 @@
             width: "94px"
           };
         }
-      }
+      },
     },
     data() {
       return {

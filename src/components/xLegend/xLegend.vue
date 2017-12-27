@@ -52,7 +52,6 @@ export default {
   },
   mounted() {
     let lHeight = this.$refs.lBody.clientHeight;
-    console.log(lHeight);
     this.lhStyle = `${lHeight}px`;
   },
   updated() {

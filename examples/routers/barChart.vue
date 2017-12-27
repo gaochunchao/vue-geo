@@ -1,9 +1,9 @@
 
 <template>
-    <div>
-        <span>柱状图</span>
-        <bar-chart :legend="lrZe.legend" :xAxis="lrZe.xAxis" :colorList="lrZe.colorList" :series="lrZe.series" :barWidth="15" legPos="left" :axisLabFmt="true" :wordsNum="3" :avDataBar="lrZe.avdata" :avLineCrl="lrZe.avLineCrl" :isDataZoom="true" :grid="{bottom:50}" :tLabel="{show:false}" lUnit="亿元" ></bar-chart>
-    </div>
+  <div>
+    <span>柱状图</span>
+    <bar-chart :legend="lrZe.legend" :xAxis="lrZe.xAxis" :colorList="lrZe.colorList" :series="lrZe.series" :avDataBar="lrZe.avdata" :avLineCrl="lrZe.avLineCrl" lUnit="亿元" :changeDir="true" :splitLineClr="'rgba(0,0,0,0)'" :yLabelBgc="'#fe6b40'" :yLabelW="60" :yLabelH="20" :yAxisLabel="lrZe.axisLabel"></bar-chart>
+  </div>
 </template>
 <script>
 export default {
@@ -15,7 +15,7 @@ export default {
       //     series: [102, 96, 125, 140, 110]
       //   },
       lrZe: {
-        grid:{
+        grid: {
           top: 30,
           bottom: 25,
           left: 10,
@@ -23,18 +23,41 @@ export default {
           containLabel: true
         },
         legend: ["增幅", "全市累积", "上年同期"],
-        xAxis: ["孝南区", "孝昌县", "大悟县", "安陆市", "云梦县", "应城市", "汉川市", "市高新区"],
-        avdata:[100],
-        avLineCrl:["#459DF7"],
+        xAxis: [1, 2, 3, 4, 5, 6, 7, 8],
+        avdata: [100],
+        avLineCrl: ["#459DF7"],
         colorList: ["#25D4E7", "#FE6B40"],
+        axisLabel: {
+          interval: 0,
+          textStyle: {
+            color: this.axisLalClr
+          },
+          formatter: function(params, index) {
+            let rank = index > 2 ? "blue" : "yellow";
+            return "{" + rank + "|" + params + "}";
+          },
+          align: "center",
+          margin: 15,
+          lineHeight: this.yLabelH,
+          rich: {
+            blue: {
+              backgroundColor: "blue",
+              width: 15,
+              height: 15,
+              borderRadius: 5
+            },
+            yellow: {
+              backgroundColor: "yellow",
+              width: 15,
+              height: 15,
+              borderRadius: 5
+            }
+          }
+        },
         series: [
           {
             type: "bar",
             data: [287, 229, 333, 481, 367, 233, 148, 295]
-          },
-          {
-            type: "line",
-            data: [747, 658, 733, 581, 707, 683, 398, 595]
           }
         ]
       }

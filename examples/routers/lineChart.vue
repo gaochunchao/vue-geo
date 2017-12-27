@@ -1,7 +1,7 @@
 <template>
   <div>
     <span>折线图</span>
-    <line-Chart type="normalLine" :isAssumed="true" :legend="jjzlLine.legend" :xAxis="jjzlLine.xAxis" :series="jjzlLine.series" :colors="jjzlLine.colors" :forceGap="true" :isSymbol="true" :axisLineClr="'#000'" :axisLalClr="'#000'" :legCrl="'#000'" :splitLineClr="'#000'" :sShow="false" :tooltipFmt="jjzlLine.tooltipFmt" :fillCor="true"></line-Chart>
+    <line-Chart type="normalLine" :isAssumed="true" :legend="jjzlLine.legend" :xAxis="jjzlLine.xAxis" :series="jjzlLine.series" :colors="jjzlLine.colors" :forceGap="false" :isSymbol="true" :axisLineClr="'#000'" :axisLalClr="'#000'" :legCrl="'#000'" :splitLineClr="'#000'" :sShow="false" :tooltipFmt="jjzlLine.tooltipFmt" :stack="true"></line-Chart>
   </div>
 </template>
 <script>
@@ -57,7 +57,7 @@ export default {
           ],
           [
             {
-              value: 130,
+              value: 95,
               status: 0
             },
             {
@@ -69,7 +69,7 @@ export default {
               status: 0
             },
             {
-              value: 85,
+              value: 70,
               status: 0
             },
             {
