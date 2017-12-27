@@ -1,15 +1,16 @@
 <template>
-    <div class="tableTest">
-        <span>表格</span>
-        <table-form color="#195fb4" :columns="qyTable.columns" :dataItem="qyTable.dataItem" :lineColors="['#05253c','#1c3f5d']" :headerColor="'#05253c'"></table-form>
-    </div>
+  <div class="tableTest">
+    <span>表格</span>
+    <table-form color="#195fb4" :columns="qyTable.columns" :dataItem="qyTable.dataItem" :lineColors="['#05253c','#1c3f5d']" :headerColor="'#05253c'" :animate="animate"></table-form>
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      animate: false,
       qyTable: {
-        lineColors:["rgba(0,0,0,0)"],
+        lineColors: ["rgba(0,0,0,0)"],
         columns: [
           {
             type: "name",
@@ -82,21 +83,21 @@ export default {
             add: "9.6%"
           }
         ]
-      },
+      }
     };
   }
 };
 </script>
 <style type="text/less" lang="less">
-.tableTest>.geo-table>.geo-table-body{
-  margin-top:0 !important;
+.tableTest > .geo-table > .geo-table-body {
+  margin-top: 0 !important;
 }
-.tableTest>.geo-table>.geo-table-header{
-  border:1px solid #355f83;
-  border-bottom:2px solid #527ca8;
+.tableTest > .geo-table > .geo-table-header {
+  border: 1px solid #355f83;
+  border-bottom: 2px solid #527ca8;
 }
-.tableTest>.geo-table>.geo-table-body{
-  border:1px solid #355f83;
+.tableTest > .geo-table > .geo-table-body {
+  border: 1px solid #355f83;
   border-top: none;
 }
 </style>

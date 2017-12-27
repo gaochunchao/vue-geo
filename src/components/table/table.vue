@@ -5,18 +5,17 @@
       <th :class="[prefixCls + '-th']" v-for="item in columns" :style="[thStyle(item),{color:hColor}]" v-html="item.name" ref="thead">
       </th>
     </thead>
-    <transition :duration="1000" enterActiveClass="animated flipInX" appear>
-      <tbody :class="[prefixCls + '-body']" ref="tbody" :style="bodyHeight" v-if="show">
-        <tr v-for="(item,index) in dataItem" :key="index" :style="[trHeight,trBack(index),{color:bColor},isHighLight(item)]">
-          <td :class="[prefixCls + '-td']" :style="{width:liWidth(index),lineHeight:cellHeight(td)}" v-for="(td,index) in item" v-html="td">
-          </td>
-        </tr>
-      </tbody>
-    </transition>
+    <tbody :class="bodyStyle" ref="tbody" :style="bodyHeight" v-if="show">
+      <tr v-for="(item,index) in dataItem" :key="index" :style="[trHeight,trBack(index),{color:bColor},isHighLight(item)]">
+        <td :class="[prefixCls + '-td']" :style="{width:liWidth(index),lineHeight:cellHeight(td)}" v-for="(td,index) in item" v-html="td">
+        </td>
+      </tr>
+    </tbody>
   </table>
 </template>
 <script>
 import { oneOf } from "../../utils/assist";
+import animate from "animate.css";
 
 const prefixCls = "geo-table";
 
@@ -60,15 +59,10 @@ export default {
       type: Boolean,
       default: true
     },
-    // 是否显示tbody，控制动画翻转
+    // 是否显示tbody
     show: {
       type: Boolean,
       default: true
-    },
-    // 是否要翻转的动画效果
-    animate: {
-      type: Boolean,
-      default: false
     },
     // 数据太多需要上下滚动来查看数据，则设置成true
     isScroll: {
@@ -99,6 +93,11 @@ export default {
       type: String,
       default: "孝感"
     },
+    // 是否需要动画效果
+    animate: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -118,6 +117,14 @@ export default {
   computed: {
     classes() {
       return `${prefixCls}`;
+    },
+    bodyStyle() {
+      return [
+        [`${prefixCls}-body`],
+        {
+          [`animated flipInX`]: this.animate == true
+        }
+      ];
     }
   },
   mounted() {
