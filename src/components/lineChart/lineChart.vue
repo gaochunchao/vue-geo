@@ -212,6 +212,16 @@ export default {
     symbol:{
       Type:String,
       default:"emptyCircle"
+    },
+    // Y轴背景色
+    splitBgc:{
+      type:Array,
+      default:["rgba(0,0,0,0)"]
+    },
+    // Y轴是否反向
+    inverse:{
+      type:Boolean,
+      default:false
     }
   },
   data() {
@@ -470,6 +480,7 @@ export default {
             name: this.yName,
             min: this.min,
             max: this.max,
+            inverse:this.inverse,
             nameTextStyle: {
               color: "#ffffff"
             },
@@ -478,6 +489,12 @@ export default {
             },
             splitLine: this.splitLine,
             splitNumber: 4,
+            splitArea:{
+              show: true,
+              areaStyle:{
+                color: this.splitBgc
+              }
+            },
             axisLabel: this.axisLabel,
             axisLine: this.axisLine
           }

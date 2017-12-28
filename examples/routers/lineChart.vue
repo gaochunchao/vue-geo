@@ -1,7 +1,7 @@
 <template>
   <div>
     <span>折线图</span>
-    <line-Chart type="normalLine" :isAssumed="true" :legend="jjzlLine.legend" :xAxis="jjzlLine.xAxis" :series="jjzlLine.series" :colors="jjzlLine.colors" :forceGap="false" :isSymbol="true" :axisLineClr="'#000'" :axisLalClr="'#000'" :legCrl="'#000'" :splitLineClr="'#000'" :sShow="false" :tooltipFmt="jjzlLine.tooltipFmt" :stack="true"></line-Chart>
+    <line-Chart type="normalLine" :isAssumed="true" :legend="jjzlLine.legend" :xAxis="jjzlLine.xAxis" :series="jjzlLine.series" :colors="jjzlLine.colors" :forceGap="false" :isSymbol="true" :axisLineClr="'#000'" :axisLalClr="'#000'" :legCrl="'#000'" :splitLineClr="'#000'" :sShow="false" :tooltipFmt="jjzlLine.tooltipFmt" :stack="true" :splitBgc="['rgba(82,124,168,0.2)','rgba(19,43,116,0.2)']"></line-Chart>
   </div>
 </template>
 <script>

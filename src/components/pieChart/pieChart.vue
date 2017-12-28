@@ -165,6 +165,16 @@ export default {
               fontFamily: "Mircosoft Yahei"
         }
       }
+    },
+    // 主标题距离顶部的位置
+    txtPos:{
+      type:String | Number,
+      default: '45%'
+    },
+    // 副标题距离顶部的位置
+    secTxtPos:{
+      type:String | Number,
+      default: '65%'
     }
   },
   data() {
@@ -203,8 +213,7 @@ export default {
       return [
         [`${prefixCls}-legend-icon`],
         {
-          [`${prefixCls}-roundIcon`]: this.shape === "round",
-          // [`${prefixCls}-squareIcon`]: this.shape === "square"
+          [`${prefixCls}-roundIcon`]: this.shape === "round"
         }
       ];
     },
@@ -229,7 +238,7 @@ export default {
     this.chart();
     this.$nextTick(() => {
       setTimeout(() => {
-        const height = this.$refs.text.clientHeight - 20;
+        const height = this.showLegend ? this.$refs.text.clientHeight - 20 : 0 ;
         const liHeight = height / this.itemData.length;
         this.liStyle.height = `${liHeight}px`;
         this.liStyle.lineHeight = `${liHeight}px`;
@@ -251,8 +260,8 @@ export default {
       this.itemData.forEach((item,index)=>{
         this.ratio.push(((parseInt(item.value) / sum)* 100).toFixed(2) + "%")
       })
-      sum+=this.unit;
       if (this.kind === "normalPie") {
+        sum+=this.unit;
         eCharts.util.each(this.itemData, (item, index) => {
           item.itemStyle = {
             normal: {
@@ -269,7 +278,7 @@ export default {
           {
             text: this.text.replace("\\n", "\n"), //通过传入\n可使标题换行
             left: "center",
-            top: this.text && (this.qty || this.secText) ? "35%" : "45%",
+            top: this.txtPos,
             textBaseline: "middle",
             textStyle: this.textStyle
           },
@@ -277,7 +286,7 @@ export default {
             text: this.secText ? this.secText : sum,
             show: this.qty || this.secText ? true : false,
             left: "center",
-            top: this.text && (this.qty || this.secText) ? "55%" : "45%",
+            top: this.secTxtPos,
             textBaseline: "middle",
             textStyle: this.secTextStyle
           }
