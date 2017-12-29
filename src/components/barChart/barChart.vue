@@ -260,7 +260,9 @@ export default {
     // Y轴背景色
     splitBgc:{
       type:Array,
-      default:["rgba(0,0,0,0)"]
+      default: function () {
+        return ["rgba(0,0,0,0)"];
+      }
     }
   },
   data() {
