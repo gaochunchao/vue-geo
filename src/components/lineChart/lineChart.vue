@@ -214,9 +214,11 @@ export default {
       default:"emptyCircle"
     },
     // Y轴背景色
-    splitBgc:{
-      type:Array,
-      default:["rgba(0,0,0,0)"]
+    splitBgc: {
+      type: Array,
+      default:function(){
+        return ["rgba(0,0,0,0)"]
+      }
     },
     // Y轴是否反向
     inverse:{

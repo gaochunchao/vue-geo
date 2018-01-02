@@ -251,16 +251,21 @@ export default {
       }
     },
     // 自定义Y轴刻度文字的样式
-    yAxisLabel:{
-      type:Object,
-      default:function(){
-
-      }
+    yAxisLabel: {
+      type: Object,
+      default: function() {}
     },
     // Y轴背景色
-    splitBgc:{
-      type:Array,
-      default:["rgba(0,0,0,0)"]
+    splitBgc: {
+      type: Array,
+      default:function(){
+        return ["rgba(0,0,0,0)"]
+      }
+    },
+    // 是否需要翻转y轴
+    inverse: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -489,7 +494,7 @@ export default {
               textStyle: {
                 color: this.axisLalClr
               },
-              show: this.changeDir ? false : true,
+              show: this.changeDir ? false : true
             },
             axisLine: {
               lineStyle: {
@@ -508,13 +513,16 @@ export default {
           {
             type: this.changeDir ? "category" : "value",
             data: this.changeDir ? this.xAxis : "",
-            axisLabel: this.yAxisLabel ? this.yAxisLabel : {
-              interval: 0,
-              textStyle: {
-                color: this.axisLalClr
-              },
-              show:true,
-            },
+            inverse: this.inverse,
+            axisLabel: this.yAxisLabel
+              ? this.yAxisLabel
+              : {
+                  interval: 0,
+                  textStyle: {
+                    color: this.axisLalClr
+                  },
+                  show: true
+                },
             axisLine: {
               lineStyle: {
                 color: this.axisLineClr
@@ -528,13 +536,13 @@ export default {
               color: "#ffffff"
             },
             splitLine: this.splitLine,
-            splitArea:{
+            splitArea: {
               show: true,
-              areaStyle:{
+              areaStyle: {
                 color: this.splitBgc
               }
             },
-            splitNumber: 3,
+            splitNumber: 3
           }
         ],
         series: series
