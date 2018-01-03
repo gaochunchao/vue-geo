@@ -178,12 +178,12 @@ export default {
         },
         // 鼠标悬浮图块偏移距离
         hoverOffset: {
-            type: String,
+            type: Number,
             default: 5
         },
         // 鼠标点击图块偏移距离
         selOffset: {
-            type: String,
+            type: Number,
             default: 5
         },
         // 点击事件
@@ -401,7 +401,7 @@ export default {
                 };
             }
             const chart = eCharts.init(this.$refs.pieChart);
-            this.chart.on(this.pieEvent.eventType, this.pieEvent.callBack);
+            chart.on(this.pieEvent.eventType, this.pieEvent.callBack);
             chart.setOption(option);
         }
     }
