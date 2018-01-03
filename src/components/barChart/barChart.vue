@@ -268,7 +268,7 @@ export default {
       default: function () {
         return ["rgba(0,0,0,0)"];
       }
-    }
+    },
     // Y轴是否反向
     inverse:{
       type:Boolean,
