@@ -1,20 +1,20 @@
 <template>
-  <section :class="classes" :style="styles">
-    <div :class="pieClasses" ref="pieChart" :style="{width:chartBox[0],height:chartBox[1]}"></div>
-    <ul :class="[prefixCls + '-legend']" ref="text" :style="{width:itemBox[0],height:itemBox[1]}" v-if="showLegend">
-      <li v-for="(item,index) in itemData" :class="[prefixCls + '-legend-li']" :style="liStyle">
-        <div :class="iconClasses" :style="{backgroundColor:colors[index],marginTop:marginTop}"></div>
-        <div :class="[prefixCls + '-legend-name']">
-          <div v-html="item.name" :style="{color:tColor}"></div>
-        </div>
-        <div :class="[prefixCls + '-legend-num']">
-          <span :class="[prefixCls + '-legend-num-value']" :style="{color:tColor}">{{item.value}}</span>
-          <span style="{font-size:14px,color:tColor}">{{unit}}</span>
-          <span v-if="hasRatio">({{ratio[index]}})</span>
-        </div>
-      </li>
-    </ul>
-  </section>
+    <section :class="classes" :style="styles">
+        <div :class="pieClasses" ref="pieChart" :style="{width:chartBox[0],height:chartBox[1]}"></div>
+        <ul :class="[prefixCls + '-legend']" ref="text" :style="{width:itemBox[0],height:itemBox[1]}" v-if="showLegend">
+            <li v-for="(item,index) in itemData" :class="[prefixCls + '-legend-li']" :style="liStyle">
+                <div :class="iconClasses" :style="{backgroundColor:colors[index],marginTop:marginTop}"></div>
+                <div :class="[prefixCls + '-legend-name']">
+                    <div v-html="item.name" :style="{color:tColor}"></div>
+                </div>
+                <div :class="[prefixCls + '-legend-num']">
+                    <span :class="[prefixCls + '-legend-num-value']" :style="{color:tColor}">{{item.value}}</span>
+                    <span style="{font-size:14px,color:tColor}">{{unit}}</span>
+                    <span v-if="hasRatio">({{ratio[index]}})</span>
+                </div>
+            </li>
+        </ul>
+    </section>
 </template>
 <script>
 import eCharts from "echarts";
@@ -199,13 +199,15 @@ export default {
     },
     data() {
         return {
+            chart: null,
             prefixCls: prefixCls,
             liStyle: {
                 height: "",
                 lineHeight: ""
             },
             marginTop: "",
-            ratio: []
+            ratio: [],
+            sum: 0
         };
     },
     computed: {
@@ -259,37 +261,45 @@ export default {
         }
     },
     mounted() {
-        this.chart();
         this.$nextTick(() => {
+            const height = this.showLegend
+                ? this.$refs.text.clientHeight - 20
+                : 0;
+            const liHeight = height / this.itemData.length;
+            this.liStyle.height = `${liHeight}px`;
+            this.liStyle.lineHeight = `${liHeight}px`;
+            this.marginTop = `${(liHeight - 14) / 2}px`;
+            this.itemData.forEach((item, index) => {
+                isNaN(item.value)
+                    ? (this.sum = "-")
+                    : (this.sum += parseInt(item.value));
+            });
+            this.itemData.forEach((item, index) => {
+                this.ratio.push(
+                    (parseInt(item.value) / this.sum * 100).toFixed(2) + "%"
+                );
+            });
             setTimeout(() => {
-                const height = this.showLegend
-                    ? this.$refs.text.clientHeight - 20
-                    : 0;
-                const liHeight = height / this.itemData.length;
-                this.liStyle.height = `${liHeight}px`;
-                this.liStyle.lineHeight = `${liHeight}px`;
-                this.marginTop = `${(liHeight - 14) / 2}px`;
-            }, 10);
+                this.drawChart();
+            }, 200);
+        });
+    },
+    updated() {
+        this.$nextTick(() => {
+            const height = this.showLegend
+                ? this.$refs.text.clientHeight - 20
+                : 0;
         });
     },
     watch: {
         itemData(curVal, oldVal) {
-            this.chart();
+            this.drawChart();
         }
     },
     methods: {
-        chart() {
-            let sum = 0;
-            this.itemData.forEach((item, index) => {
-                isNaN(item.value) ? (sum = "-") : (sum += parseInt(item.value));
-            });
-            this.itemData.forEach((item, index) => {
-                this.ratio.push(
-                    (parseInt(item.value) / sum * 100).toFixed(2) + "%"
-                );
-            });
+        drawChart() {
             if (this.kind === "normalPie") {
-                sum += this.unit;
+                this.sum += this.unit;
                 eCharts.util.each(this.itemData, (item, index) => {
                     item.itemStyle = {
                         normal: {
@@ -311,7 +321,7 @@ export default {
                         textStyle: this.textStyle
                     },
                     {
-                        text: this.secText ? this.secText : sum,
+                        text: this.secText ? this.secText : this.sum,
                         show: this.qty || this.secText ? true : false,
                         left: "center",
                         top: this.secTxtPos,
@@ -372,7 +382,7 @@ export default {
                             },
                             {
                                 value: this.percent
-                                    ? sum - parseInt(item.value)
+                                    ? this.sum - parseInt(item.value)
                                     : this.itemData[0].value - item.value,
                                 name: "invisible",
                                 tooltip: {
@@ -400,9 +410,9 @@ export default {
                         : "{a} <br/> {c} ({d}%)"
                 };
             }
-            const chart = eCharts.init(this.$refs.pieChart);
-            chart.on(this.pieEvent.eventType, this.pieEvent.callBack);
-            chart.setOption(option);
+            this.chart = eCharts.init(this.$refs.pieChart);
+            this.chart.on(this.pieEvent.eventType, this.pieEvent.callBack);
+            this.chart.setOption(option);
         }
     }
 };
