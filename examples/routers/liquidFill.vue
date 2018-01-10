@@ -1,5 +1,6 @@
 <template>
-    <liquid-fill :dataList="yqzb.dataList" :colorList="['#3797BB', '#3B6996']" :percent="'45%'" :title="'园区产值占比'"></liquid-fill>
+  <liquid-fill :dataList="yqzb.dataList" :colorList="['#3797BB', '#3B6996']" borderCor="#3797BB" :percent="'45%'"
+               :title="'园区产值占比'"></liquid-fill>
 </template>
 <script>
 export default {

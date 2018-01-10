@@ -35,6 +35,11 @@ export default {
             }
         },
         percent: String,
+      // 外框的颜色
+      borderCor: {
+        type: String,
+        default: "#4EAFF8"
+      },
         // 标题的颜色
         titleCor: {
             type: String,
@@ -113,7 +118,7 @@ export default {
                             borderDistance: 5,
                             itemStyle: {
                                 color: "none",
-                                borderColor: "#4EAFF8",
+                              borderColor: this.borderCor,
                                 borderWidth: 3,
                                 shadowBlur: 10,
                                 shadowColor: "rgba(0, 0, 0, 0.25)"
