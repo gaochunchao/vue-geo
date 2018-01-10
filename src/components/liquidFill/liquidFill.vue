@@ -1,6 +1,6 @@
 <template>
-  <div :class="classes" ref="liquidFill" :style="styles">
-  </div>
+    <div :class="classes" ref="liquidFill" :style="styles">
+    </div>
 </template>
 <script>
 import eCharts from "echarts";
@@ -21,12 +21,12 @@ export default {
             type: [Number, String],
             default: 300
         },
-        dataList: {
-            type: Array,
-            default() {
-                return [];
-            }
-        },
+        // dataList: {
+        //     type: Array,
+        //     default() {
+        //         return [];
+        //     }
+        // },
         title: String,
         colorList: {
             type: Array,
@@ -34,12 +34,12 @@ export default {
                 return [];
             }
         },
-        percent: String,
-      // 外框的颜色
-      borderCor: {
-        type: String,
-        default: "#4EAFF8"
-      },
+        percent: Number,
+        // 外框的颜色
+        borderCor: {
+            type: String,
+            default: "#4EAFF8"
+        },
         // 标题的颜色
         titleCor: {
             type: String,
@@ -69,6 +69,9 @@ export default {
                 style.width = `${this.width}px`;
             }
             return style;
+        },
+        newList() {
+            return [this.percent / 100 + 0.05, this.percent / 100];
         }
     },
     mounted() {
@@ -95,7 +98,7 @@ export default {
                 series: [
                     {
                         type: "liquidFill",
-                        data: this.dataList,
+                        data: this.newList,
                         color: this.colorList,
                         amplitude: "5%",
                         waveLength: "80%",
@@ -118,7 +121,7 @@ export default {
                             borderDistance: 5,
                             itemStyle: {
                                 color: "none",
-                              borderColor: this.borderCor,
+                                borderColor: this.borderCor,
                                 borderWidth: 3,
                                 shadowBlur: 10,
                                 shadowColor: "rgba(0, 0, 0, 0.25)"
@@ -155,7 +158,7 @@ export default {
                                 // formatter: this.title + "\n" + this.percent
                                 formatter: [
                                     "{title|" + this.title + "}",
-                                    "{percent|" + this.percent + "}"
+                                    "{percent|" + this.percent + "%" + "}"
                                 ].join("\n"),
                                 borderRadius: 4,
                                 rich: {
