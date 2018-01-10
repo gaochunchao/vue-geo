@@ -255,14 +255,7 @@ export default {
             type: Object,
             default: function() {}
         },
-        // Y轴背景色
-        splitBgc: {
-            type: Array,
-            default: function() {
-                return ["rgba(0,0,0,0)"];
-            }
-        },
-        // Y轴背景色
+        // Y轴方向的背景色
         splitBgc: {
             type: Array,
             default: function() {

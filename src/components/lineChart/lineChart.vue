@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" :style="styles" ref="lineChart"></div>
+    <div :class="classes" :style="styles" ref="lineChart"></div>
 </template>
 <script>
 import eCharts from "echarts";
@@ -197,12 +197,12 @@ export default {
                 return "loading";
             }
         },
-        //normalLine是否填充
+        //normalLine区域是否填充
         fillCor: {
             type: Boolean,
             default: false
         },
-        //normalLine填充的颜色
+        //normalLine区域填充的颜色
         aColors: {
             type: Array,
             default() {
@@ -229,7 +229,9 @@ export default {
         inverse: {
             type: Boolean,
             default: false
-        }
+        },
+        // Y轴刻度单位
+        yUnit: String
     },
     data() {
         return {
@@ -511,7 +513,13 @@ export default {
                                 color: this.splitBgc
                             }
                         },
-                        axisLabel: this.axisLabel,
+                        axisLabel: {
+                            interval: 0,
+                            textStyle: {
+                                color: this.axisLalClr
+                            },
+                            formatter: this.yUnit ? "{value}" + this.yUnit : "{value}"
+                        },
                         axisLine: this.axisLine
                     }
                 ],

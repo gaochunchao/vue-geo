@@ -4,9 +4,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './app.vue';
-import api from '../src/api'
 import geoView from '../src/index';
-import '../src/styles/index.less'
+import '../src/styles/index.less'                                          
 import barChart from './routers/barChart.vue'
 import timelineBar from './routers/timelineBar.vue'
 import multipleRing from './routers/multipleRing.vue'
@@ -30,8 +29,6 @@ Vue.use(geoView);
 
 // 开启debug模式
 Vue.config.debug = true;
-
-Vue.prototype.$api = api;
 
 // 路由配置
 const router = new VueRouter({

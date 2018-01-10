@@ -6,11 +6,9 @@
         <ul class="tabBox">
             <li class="tabName" :class="tabid==item.id?'selected':''" @click="sczzCY(item.id)" v-for="item in tabItem" :key="item.id">{{item.name}}</li>
         </ul>
-        <pieChart class="hot-case-chart animated flipInX" tColor="#000" :height="160" :width="400" text="占比分析" titleCor="#000" :key="csKey" :colors="caseSource.colors" :itemData="caseSource.itemData" :selected="false" :radius='[45, 65]' unit="" :hasRatio="true"></pieChart>
     </div>
 </template>
 <script>
-import api from "../../src/api";
 export default {
     data() {
         return {
@@ -97,39 +95,6 @@ export default {
             }
         };
     },
-    mounted() {
-        this.getCaseSource(1);
-    },
-    methods: {
-        getCaseSource(typepid) {
-            this.$api
-                .getPublicHotline("getCaseSource", { typepid: typepid })
-                .then(resp => {
-                    if (resp.resCode === 1 && resp.data.length > 0) {
-                        this.caseSource.itemData = [];
-                        
-                        const data = resp.data;
-                        data.forEach(item => {
-                            this.caseSource.itemData.push({
-                                value: Number(item.amount),
-                                name: item.typename
-                            });
-                        });
-                    }
-                });
-        },
-        sczzCY(data,id) {
-            this.tabId = id;
-            this.csKey = +new Date();
-            this.getCaseSource(data);
-        }
-        // change1(id) {
-        //     this.tabid = id;
-        // },
-        // change2(id) {
-        //     this.tabid = id;
-        // }
-    }
 };
 </script>
 <style lang="less">
