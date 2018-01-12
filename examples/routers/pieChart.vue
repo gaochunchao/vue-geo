@@ -1,7 +1,7 @@
 <template>
     <div>
         <span>饼形图</span>
-        <pieChart text="经济" :colors="fsPie.colors" :itemData="fsPie.itemData" :selected="false" :kind="'overlayPie'" :radius="[['40%','50%'],['50%','60%'],['60%','70%']]" :percent="false" :startAngle="[90,90,90]" unit="人"></pieChart>
+        <pieChart text="经济" :height="200" :width="530" :colors="fsPie.colors" :itemData="fsPie.itemData" :selected="false" :kind="'overlayPie'" :radius="[['40%','50%'],['50%','60%'],['60%','70%']]" :percent="true" :hasRatio="true" :startAngle="[90,90,90]" unit="人"></pieChart>
         <pieChart :type="'h'" :height="200" :width="230" :colors="fsPie.colors" :itemData="fsPie.itemData" :selected="false" :radius='[25, 35]' unit="人" :hasRatio="true" :qty="true" :text="'总计'" :pieEvent="fsPie.pieEvent"></pieChart>
         <ul class="tabBox">
             <li class="tabName" :class="tabid==item.id?'selected':''" @click="sczzCY(item.id)" v-for="item in tabItem" :key="item.id">{{item.name}}</li>
@@ -28,15 +28,15 @@ export default {
                 title: "工业废水行业分布",
                 itemData: [
                     {
-                        value: 500,
+                        value: 8246,
                         name: "造纸和纸制品业"
                     },
                     {
-                        value: 300,
+                        value: 0,
                         name: "金属制品业"
                     },
                     {
-                        value: 240,
+                        value: 0,
                         name: "纺织业"
                     }
                 ]

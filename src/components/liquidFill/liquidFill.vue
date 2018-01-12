@@ -85,7 +85,7 @@ export default {
         });
     },
     watch: {
-        dataList(curVal, oldVal) {
+        percent(curVal, oldVal) {
             this.drawChart();
         },
         colorList(curVal, oldVal) {

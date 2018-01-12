@@ -9,7 +9,7 @@
                 </div>
                 <div :class="[prefixCls + '-legend-num']">
                     <span :class="[prefixCls + '-legend-num-value']" :style="{color:tColor}">{{item.value}}</span>
-                    <span style="{font-size:14px,color:tColor}">{{unit}}</span>
+                    <span v-if="!isNaN(item.value)" style="{font-size:14px,color:tColor}">{{unit}}</span>
                     <span v-if="hasRatio">({{ratio[index]}})</span>
                 </div>
             </li>
@@ -270,13 +270,15 @@ export default {
             this.liStyle.lineHeight = `${liHeight}px`;
             this.marginTop = `${(liHeight - 14) / 2}px`;
             this.itemData.forEach((item, index) => {
-                isNaN(item.value)
-                    ? (this.sum = "-")
-                    : (this.sum += parseInt(item.value));
+                if(isNaN(item.value) || item.value == 0) {
+                    item.value = "--";
+                } else {
+                    (this.sum += parseInt(item.value));
+                }
             });
             this.itemData.forEach((item, index) => {
                 this.ratio.push(
-                    (parseInt(item.value) / this.sum * 100).toFixed(2) + "%"
+                    isNaN(item.value) || item.value == 0 ? '--' : (parseInt(item.value) / this.sum * 100).toFixed(2) + "%"
                 );
             });
             setTimeout(() => {
