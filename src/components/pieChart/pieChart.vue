@@ -25,9 +25,6 @@
   export default {
     name: "pieChart",
     props: {
-      key: {
-        type: String
-      },
       // 外盒宽度
       width: {
         type: [Number, String],
@@ -296,9 +293,6 @@
     },
     watch: {
       itemData(curVal, oldVal) {
-        this.drawChart();
-      },
-      key(){
         this.drawChart();
       }
     },
