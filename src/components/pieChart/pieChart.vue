@@ -276,10 +276,12 @@ export default {
                     this.sum += parseInt(item.value);
                 }
             });
-
             this.itemData.forEach((item, index) => {
                 this.ratio.push(
-                    (parseInt(item.value) / this.sum * 100).toFixed(2) + "%"
+                    isNaN(item.value) || item.value == 0
+                        ? "--"
+                        : (parseInt(item.value) / this.sum * 100).toFixed(2) +
+                          "%"
                 );
             });
             setTimeout(() => {
