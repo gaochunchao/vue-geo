@@ -1,5 +1,5 @@
 <template>
-  <table :class="classes" :style="[styles,{borderCollapse:'collapse'}]" ref="table">
+  <table :class="classes" :style="[styles,{borderCollapse:'collapse'}]" ref="geoXTable">
     <!--表头-->
     <thead :class="[prefixCls + '-header']" :style="{backgroundColor:headerColor,height:thHeight+'px'}" v-if="isHeader">
       <th :class="[prefixCls + '-th']" v-for="item in columns" :style="[thStyle(item),{color:hColor}]" v-html="item.name" ref="thead">
@@ -124,7 +124,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       setTimeout(() => {
-        const vHeight = this.$refs.table.clientHeight;
+        const vHeight = this.$refs.geoXTable.clientHeight;
         let bHeight = vHeight;
         if (this.isHeader) {
           bHeight = vHeight - this.thHeight - 10;
