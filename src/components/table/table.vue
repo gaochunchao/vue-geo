@@ -1,11 +1,11 @@
 <template>
-  <table :class="classes" :style="[styles,{borderCollapse:'collapse'}]">
+  <table :class="classes" :style="[styles,{borderCollapse:'collapse'}]" ref="table">
     <!--表头-->
     <thead :class="[prefixCls + '-header']" :style="{backgroundColor:headerColor,height:thHeight+'px'}" v-if="isHeader">
       <th :class="[prefixCls + '-th']" v-for="item in columns" :style="[thStyle(item),{color:hColor}]" v-html="item.name" ref="thead">
       </th>
     </thead>
-    <tbody :class="bodyStyle" ref="tbody" :style="bodyHeight" v-if="show">
+    <tbody :class="bodyStyle" :style="bodyHeight">
       <tr v-for="(item,index) in dataItem" :key="index" :style="[trHeight,trBack(index),{color:bColor},isHighLight(item)]">
         <td :class="[prefixCls + '-td']" :style="{width:liWidth(index),lineHeight:cellHeight(td)}" v-for="(td,index) in item" v-html="td">
         </td>
@@ -55,11 +55,6 @@ export default {
     },
     // 是否显示表头
     isHeader: {
-      type: Boolean,
-      default: true
-    },
-    // 是否显示tbody
-    show: {
       type: Boolean,
       default: true
     },
@@ -129,43 +124,26 @@ export default {
   mounted() {
     this.$nextTick(() => {
       setTimeout(() => {
+        const vHeight = this.$refs.table.clientHeight;
+        let bHeight = vHeight;
         if (this.isHeader) {
-          this.bodyHeight.height = `calc(100% - ${this.thHeight + 10}px)`;
+          bHeight = vHeight - this.thHeight - 10;
+          this.bodyHeight.height = `${bHeight}px`;
           this.bodyHeight.marginTop = "10px";
         } else {
-          this.bodyHeight.height = "100%";
+          this.bodyHeight.height = `${bHeight}px`;
           this.bodyHeight.marginTop = "0";
         }
         if (this.isScroll) {
           this.liHeight = Math.floor(
-            this.$refs.tbody.clientHeight / this.showNum
+            bHeight / this.showNum
           );
         } else {
-          this.liHeight = this.$refs.tbody.clientHeight / this.dataItem.length;
+          this.liHeight = bHeight / this.dataItem.length;
         }
         this.trHeight.height = `${this.liHeight}px`;
         this.trHeight.lineHeight = `${this.liHeight}px`;
       }, 10);
-    });
-  },
-  updated() {
-    this.$nextTick(() => {
-      if (this.show) {
-        if (this.isHeader) {
-          this.bodyHeight.height = `calc(~"100% - 34px")`;
-        } else {
-          this.bodyHeight.height = "100%";
-        }
-        if (this.isScroll) {
-          this.liHeight = Math.floor(
-            this.$refs.tbody.clientHeight / this.showNum
-          );
-        } else {
-          this.liHeight = this.$refs.tbody.clientHeight / this.dataItem.length;
-        }
-        this.trHeight.height = `${this.liHeight}px`;
-        this.trHeight.lineHeight = `${this.liHeight}px`;
-      }
     });
   },
   methods: {
