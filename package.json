@@ -28,7 +28,6 @@
   "dependencies": {
     "buffer-shims": "^1.0.0",
     "echarts": "^3.6.2",
-    "axios": "^0.16.2",
     "echarts-liquidfill": "^1.1.1",
     "echarts-wordcloud": "^1.1.0",
     "util-deprecate": "^1.0.2",

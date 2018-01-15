@@ -1,20 +1,20 @@
 <template>
-    <section :class="classes" :style="styles">
-        <div :class="pieClasses" ref="pieChart" :style="{width:chartBox[0],height:chartBox[1]}"></div>
-        <ul :class="[prefixCls + '-legend']" ref="text" :style="{width:itemBox[0],height:itemBox[1]}" v-if="showLegend">
-            <li v-for="(item,index) in itemData" :class="[prefixCls + '-legend-li']" :style="liStyle">
-                <div :class="iconClasses" :style="{backgroundColor:colors[index],marginTop:marginTop}"></div>
-                <div :class="[prefixCls + '-legend-name']">
-                    <div v-html="item.name" :style="{color:tColor}"></div>
-                </div>
-                <div :class="[prefixCls + '-legend-num']">
-                    <span :class="[prefixCls + '-legend-num-value']" :style="{color:tColor}">{{item.value}}</span>
-                    <span v-if="!isNaN(item.value)" style="{font-size:14px,color:tColor}">{{unit}}</span>
-                    <span v-if="hasRatio">({{ratio[index]}})</span>
-                </div>
-            </li>
-        </ul>
-    </section>
+  <section :class="classes" :style="styles">
+    <div :class="pieClasses" ref="pieChart" :style="{width:chartBox[0],height:chartBox[1]}"></div>
+    <ul :class="[prefixCls + '-legend']" ref="text" :style="{width:itemBox[0],height:itemBox[1]}" v-if="showLegend">
+      <li v-for="(item,index) in itemData" :class="[prefixCls + '-legend-li']" :style="liStyle">
+        <div :class="iconClasses" :style="{backgroundColor:colors[index],marginTop:marginTop}"></div>
+        <div :class="[prefixCls + '-legend-name']">
+          <div v-html="item.name" :style="{color:tColor}"></div>
+        </div>
+        <div :class="[prefixCls + '-legend-num']">
+          <span :class="[prefixCls + '-legend-num-value']" :style="{color:tColor}">{{item.value}}</span>
+          <span v-if="!isNaN(item.value)" style="{font-size:14px,color:tColor}">{{unit}}</span>
+          <span v-if="hasRatio">({{ratio[index]}})</span>
+        </div>
+      </li>
+    </ul>
+  </section>
 </template>
 <script>
 import eCharts from "echarts";
@@ -270,15 +270,16 @@ export default {
             this.liStyle.lineHeight = `${liHeight}px`;
             this.marginTop = `${(liHeight - 14) / 2}px`;
             this.itemData.forEach((item, index) => {
-                if(isNaN(item.value) || item.value == 0) {
+                if (isNaN(item.value) || item.value == 0) {
                     item.value = "--";
                 } else {
-                    (this.sum += parseInt(item.value));
+                    this.sum += parseInt(item.value);
                 }
             });
+
             this.itemData.forEach((item, index) => {
                 this.ratio.push(
-                    isNaN(item.value) || item.value == 0 ? '--' : (parseInt(item.value) / this.sum * 100).toFixed(2) + "%"
+                    (parseInt(item.value) / this.sum * 100).toFixed(2) + "%"
                 );
             });
             setTimeout(() => {
