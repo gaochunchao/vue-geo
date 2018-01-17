@@ -1,7 +1,7 @@
 <template>
   <div class="tableTest">
     <span>表格</span>
-    <table-form color="#195fb4" :columns="qyTable.columns" :dataItem="qyTable.dataItem"
+    <table-form color="#195fb4" :columns="qyTable.columns" :dataItem="qyTable.dataItem" :styles="tableStyle"
                 :lineColors="['#05253c','#1c3f5d']" :headerColor="'#05253c'" :animate="animate"></table-form>
   </div>
 </template>
@@ -10,6 +10,11 @@
     data() {
       return {
         animate: false,
+        tableStyle: {
+          width: '430px',
+          height: '710px',
+          margin: '10px'
+        },
         qyTable: {
           lineColors: ["rgba(0,0,0,0)"],
           columns: [

@@ -7,7 +7,8 @@
     </thead>
     <tbody :class="bodyStyle" :style="bodyHeight">
       <tr v-for="(item,index) in dataItem" :key="index" :style="[trHeight,trBack(index),{color:bColor},isHighLight(item)]">
-        <td :class="[prefixCls + '-td']" :style="{width:liWidth(index),lineHeight:cellHeight(td)}" v-for="(td,index) in item" v-html="td">
+        <td :class="[prefixCls + '-td']" :style="{width:liWidth(index),lineHeight:cellHeight(td)}"
+            v-for="(td,index) in item" v-html="td" :title="td">
         </td>
       </tr>
     </tbody>
