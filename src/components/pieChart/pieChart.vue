@@ -299,10 +299,12 @@ export default {
             this.ratio = [];
             this.itemData.forEach((item, index) => {
                 this.ratio.push(
-                    isNaN(item.value)
-                        ? "--"
-                        : (parseInt(item.value) / this.sum * 100).toFixed(2) +
-                          "%"
+                    item.value == 0
+                        ? "0"
+                        : isNaN(item.value)
+                          ? "--%"
+                          : (parseInt(item.value) / this.sum * 100).toFixed(2) +
+                            "%"
                 );
             });
             if (this.kind === "normalPie") {
