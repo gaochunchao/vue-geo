@@ -22,6 +22,9 @@
         <router-link to="/xLegend">图例1</router-link>
         <router-link to="/yLegend">图例2</router-link>
         <router-link to="/liquidFill">水波进度条</router-link>
+        <router-link to="/xRing">圆环动画</router-link>
+        <router-link to="/xProgress">进度条1</router-link>
+        <router-link to="/bProgress">进度条2</router-link>
       </div>
       <div class="geo-container-content">
         <router-view class=""></router-view>

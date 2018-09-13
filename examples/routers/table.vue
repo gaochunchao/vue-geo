@@ -2,7 +2,7 @@
   <div class="tableTest">
     <span>表格</span>
     <table-form color="#195fb4" :columns="qyTable.columns" :dataItem="qyTable.dataItem" :styles="tableStyle"
-                :lineColors="['#05253c','#1c3f5d']" :headerColor="'#05253c'" :animate="animate"></table-form>
+                :lineColors="['#05253c','#1c3f5d']" :headerColor="'#05253c'" :animate="animate" @on-show="show"></table-form>
   </div>
 </template>
 <script>
@@ -91,6 +91,11 @@
           ]
         }
       };
+    },
+    methods:{
+      show(item){
+        console.log(item)
+      }
     }
   };
 </script>

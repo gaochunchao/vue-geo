@@ -22,6 +22,9 @@ import yLabel from './routers/yLabel.vue'
 import xLegend from './routers/xLegend.vue'
 import yLegend from './routers/yLegend.vue'
 import liquidFill from './routers/liquidFill.vue'
+import xRing from './routers/xRing.vue'
+import xProgress from './routers/xProgress.vue'
+import bProgress from './routers/bProgress.vue'
 
 
 Vue.use(VueRouter);
@@ -94,6 +97,15 @@ const router = new VueRouter({
     }, {
       path: '/liquidFill',
       component: liquidFill
+    },{
+      path: '/xRing',
+      component: xRing
+    },{
+      path: '/xProgress',
+      component: xProgress
+    },{
+      path: '/bProgress',
+      component: bProgress
     },
   ]
 });

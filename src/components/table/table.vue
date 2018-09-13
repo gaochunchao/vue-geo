@@ -6,7 +6,7 @@
       </th>
     </thead>
     <tbody :class="bodyStyle" :style="bodyHeight">
-      <tr v-for="(item,index) in dataItem" :key="index" :style="[trHeight,trBack(index),{color:bColor},isHighLight(item)]">
+      <tr v-for="(item,index) in dataItem" :key="index" :style="[trHeight,trBack(index),{color:bColor},isHighLight(item)]" @click="showItem(item)">
         <td :class="[prefixCls + '-td']" :style="{width:liWidth(index),lineHeight:cellHeight(td)}"
             v-for="(td,index) in item" v-html="td" :title="td">
         </td>
@@ -124,7 +124,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      setTimeout(() => {
+      // setTimeout(() => {
         const vHeight = this.$refs.geoXTable.clientHeight;
         let bHeight = vHeight;
         if (this.isHeader) {
@@ -144,7 +144,7 @@ export default {
         }
         this.trHeight.height = `${this.liHeight}px`;
         this.trHeight.lineHeight = `${this.liHeight}px`;
-      }, 10);
+      // }, 10);
     });
   },
   methods: {
@@ -176,6 +176,9 @@ export default {
           color: this.hlColor
         };
       }
+    },
+    showItem(item){
+      this.$emit("on-show",item)
     }
   }
 };

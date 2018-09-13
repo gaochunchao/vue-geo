@@ -201,10 +201,8 @@ export default {
         return {
             chart: null,
             prefixCls: prefixCls,
-            liStyle: {
-                height: "",
-                lineHeight: ""
-            },
+            liHeight: Number,
+            boxHeight:Number,
             marginTop: "",
             ratio: [],
             sum: 0
@@ -258,31 +256,30 @@ export default {
                 style.color = `${this.tColor}`;
             }
             return style;
+        },
+        liStyle() {
+            return {
+                height: `${this.liHeight}px`,
+                lineHeight: `${this.liHeight}px`
+            };
         }
     },
     mounted() {
         this.$nextTick(() => {
-            const height = this.showLegend
+            this.boxHeight = this.showLegend
                 ? this.$refs.text.clientHeight - 20
                 : 0;
-            const liHeight = height / this.itemData.length;
-            this.liStyle.height = `${liHeight}px`;
-            this.liStyle.lineHeight = `${liHeight}px`;
-            this.marginTop = `${(liHeight - 14) / 2}px`;
+            this.liHeight = this.boxHeight / this.itemData.length; 
+            this.marginTop = `${(this.liHeight - 14) / 2}px`;
             setTimeout(() => {
                 this.drawChart();
             }, 200);
         });
     },
-    updated() {
-        this.$nextTick(() => {
-            const height = this.showLegend
-                ? this.$refs.text.clientHeight - 20
-                : 0;
-        });
-    },
     watch: {
         itemData(curVal, oldVal) {
+            this.liHeight = this.boxHeight/ this.itemData.length;
+            this.marginTop = `${(this.liHeight - 14) / 2}px`;
             this.drawChart();
         }
     },

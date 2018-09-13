@@ -1,0 +1,33 @@
+@x-ring: ~"@{css-prefix}xRing";
+.@{x-ring}-animate{
+  box-sizing: content-box;
+}
+.@{x-ring}-inner{
+  box-sizing: content-box;
+  border: 2px solid #5fb0ea;
+  border-radius:50%;
+  display: block;
+  position: relative;
+  top:3px;
+  left:3px;
+  animation:roate-reverse 5s linear infinite;
+  .@{xLegend}-box{
+    position: relative;
+    text-align: center;
+  }
+}
+.positive{
+  animation:roate-circle 5s linear infinite;
+}
+.reverse{
+  animation:roate-reverse 5s linear infinite;
+}
+ @keyframes roate-circle{
+  0% {transform:rotate(0deg);}
+  100% {transform:rotate(360deg);}
+};
+
+@keyframes roate-reverse{
+  0% {transform:rotate(0deg);}
+  100% {transform:rotate(-360deg);}
+};

@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" :style="styles" ref="barChart"></div>
+    <div :class="classes" :style="styles" ref="barChart"></div>
 </template>
 <script>
 import eCharts from "echarts";
@@ -235,6 +235,10 @@ export default {
             type: String | Number,
             default: "30%"
         },
+        barCategoryGap: {
+            type: String | Number,
+            default: "20%"
+        },
         // 如果是折柱混合，且柱子的颜色是隔行变色，则需单独设置line的颜色
         lineColors: {
             type: Array,
@@ -268,16 +272,16 @@ export default {
             default: false
         },
         // Y轴刻度单位
-        yUnit:{
-           type: Array,
+        yUnit: {
+            type: Array,
             default: function() {
-                return ['',''];
+                return ["", ""];
             }
         },
         // 多条折线是否堆叠
-        lineStack:{
-          type:Boolean,
-          default:true
+        lineStack: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
@@ -361,6 +365,8 @@ export default {
                     barWidth: this.barWidth,
                     symbol: "circle",
                     barGap: this.barGap,
+                    
+                        barCategoryGap: this.barCategoryGap,
                     symbolSize: 8,
                     itemStyle: {
                         normal: {

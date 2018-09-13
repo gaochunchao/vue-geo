@@ -1,0 +1,69 @@
+@bProgress:~"@{css-prefix}bProgress";
+.@{bProgress}{
+    height: 18px;
+    line-height: 18px;
+    background: #515257;
+    width: 88%;
+    overflow: visible;
+    border-radius: 20px;
+    font-size: 16px;
+    font-family: "Microsoft YaHei";
+    &-bar {
+      border-radius: 20px;
+      position: relative;
+      animation: animate-positive 2s;
+      background-color: #00BCE1;
+      position: relative;
+      float: left;
+      height: 100%;
+      -webkit-box-shadow: inset 0 -1px 0 rgba(0, 188, 225, .15);
+      box-shadow: inset 0 -1px 0 rgba(0, 188, 225, .15);
+      -webkit-transition: width .6s ease;
+      -o-transition: width .6s ease;
+      transition: width .6s ease;
+      box-sizing: border-box;
+      animation: reverse progress-bar-stripes 0.40s linear infinite, animate-positive 2s;
+      label {
+        font-size: 12px;
+        font-family: "Microsoft YaHei";
+      }
+    }
+    .progress-striped .@{bProgress}-bar, .progress-bar-striped {
+      background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+      background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+      background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+      -webkit-background-size: 40px 40px;
+      background-size: 40px 40px
+    }
+    &-value {
+      display: block;
+      padding: 2px 5px;
+      font-size: 13px;
+      color: #fff;
+      border-radius: 4px;
+      background: #204677;
+      border: 1px solid #204677;
+      position: absolute;
+      top: -30px;
+      right: -10px;
+    }
+    &-value:after {
+      content: "";
+      border-top: 10px solid #204677;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      position: absolute;
+      bottom: -6px;
+      left: 26%;
+    }
+    @-webkit-keyframes animate-positive {
+      0% {
+        width: 0;
+      }
+    }
+    @keyframes animate-positive {
+      0% {
+        width: 0;
+      }
+    }
+  }
