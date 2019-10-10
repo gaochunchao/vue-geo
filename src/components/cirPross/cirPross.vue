@@ -46,6 +46,7 @@ export default {
         return {
             canvaStyle: {},
             ctx: null,
+            shadowColor:'',
             centerX: null,
             centerY: null,
             rad: Math.PI * 2 / 100,
@@ -85,6 +86,7 @@ export default {
         const canvas = this.$refs.cirPross;
         const marginTop = canvas.clientHeight / 2 - this.radius;
         const marginLeft = canvas.clientWidth / 2 - this.radius;
+        this.shadowColor=this.colorRgb(this.color,0.3);
         this.canvaStyle = {
             marginTop: `${marginTop}px`,
             marginLeft: `${marginLeft}px`
@@ -109,6 +111,28 @@ export default {
         }
     },
     methods: {
+        colorRgb(sColor,opacity){
+            sColor = sColor.toLowerCase();
+    //十六进制颜色值的正则表达式
+            var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+    // 如果是16进制颜色
+            if (sColor && reg.test(sColor)) {
+                if (sColor.length === 4) {
+                    var sColorNew = '#';
+                    for (var i=1; i<4; i+=1) {
+                        sColorNew += sColor.slice(i, i+1).concat(sColor.slice(i, i+1));    
+                    }
+                    sColor = sColorNew;
+                }
+        //处理六位的颜色值
+                var sColorChange = [];
+                for (let i=1; i<7; i+=2) {
+                    sColorChange.push(parseInt('0x'+sColor.slice(i, i+2)));    
+                }
+                return 'RGBA(' + sColorChange.join(',') + ','+opacity+')';
+            }
+            return sColor;
+        },
     //绘制蓝色外圈
         blueCircle(n) {
             this.ctx.save();
@@ -129,9 +153,9 @@ export default {
             var angle = 2*Math.PI - endRadian; // 转换成逆时针方向的弧度（三角函数中的）
             var xPos = Math.cos(angle) * this.radius + this.centerX; // 红色圆 圆心的x坐标
             var yPos = -Math.sin(angle) * this.radius + this.centerY; // 红色圆 圆心的y坐标
-            var grd=this.ctx.createRadialGradient(xPos,yPos,0,xPos,yPos,this.lineWidth);
+            var grd=this.ctx.createRadialGradient(xPos,yPos,0,xPos,yPos,this.lineWidth*1.2);
             grd.addColorStop(0,'#fff');
-            grd.addColorStop(1,this.color);            
+            grd.addColorStop(1,this.shadowColor);                 
             this.ctx.beginPath();
             this.ctx.moveTo(xPos,yPos+this.lineWidth*2.5);
             this.ctx.lineTo(xPos-3,yPos);
@@ -139,17 +163,18 @@ export default {
             this.ctx.lineTo(xPos + 3,yPos);
             this.ctx.fillStyle=grd;
             this.ctx.shadowBlur=10;
-            this.ctx.shadowColor=this.starColor.length>0?this.starColor:this.color;
+            this.ctx.shadowColor=this.starColor.length>0?this.starColor:this.color;                          
             this.ctx.closePath();
             this.ctx.fill();
             this.ctx.beginPath();
             this.ctx.moveTo(xPos-this.lineWidth*2.5,yPos);
             this.ctx.lineTo(xPos,yPos-3);
             this.ctx.lineTo(xPos+this.lineWidth*2.5,yPos);
-            this.ctx.lineTo(xPos,yPos+3);
-            this.ctx.fillStyle=grd;
+            this.ctx.lineTo(xPos,yPos+3);            
             this.ctx.shadowBlur=10;
-            this.ctx.shadowColor=this.starColor.length>0?this.starColor:this.color;
+            this.ctx.shadowColor=this.starColor.length>0?this.starColor:this.color;                 
+            this.ctx.fillStyle=grd;  
+                    
             this.ctx.closePath();
             this.ctx.fill();
         },
